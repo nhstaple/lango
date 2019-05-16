@@ -17,77 +17,52 @@ let requestObject =
 	]
 }
 
-function translateHandler(req, res, next)
-{
-	let qObj = req.query;
-	let data = {"English": "", "Spanish": ""};
-	res.json({});
-	if(qObj.english != undefined)
-	{
-		var translate = requestObject;
-		translate.q[0] = qObj.english;
-		console.log("Want to translate: ", translate.q[0]);
-		APIrequest(
-		{ // HTTP header stuff
-			url: url,
-			method: "POST",
-			headers: {"content-type": "application/json"},
-			// will turn the given object into JSON
-			json: translate},
-			// callback function for API request
-			// APIcallback
-			function(err, APIresHead, APIresBody) {
-				// gets three objects as input
-				if ((err) || (APIresHead.statusCode != 200)) {
-					// API is not working
-					console.log("Got API error");
-					console.log(APIresBody);
-				} else {
-					if (APIresHead.error) {
-						// API worked but is not giving you data
-						console.log(APIresHead.error);
-					} else {
-						data.English = qObj.english;
-						data.Spanish = APIresBody.data.translations[0].translatedText;
-						console.log(data);
-						//res.json = data;
-						//res.send(JSON.stringify(data));
-						next();
-					}
-				}
-			} // end callback function
-		); // end APIRequest call
+function callbackClosure (res, translate, next) {
+	function APIcallback (err, APIresHead, APIresBody) {
+		if ((err) || (APIresHead.statusCode != 200)) {
+			// API is not working
+			console.log("Got API error");
+			console.log(APIresBody);
+		} else {
+			if (APIresHead.error) {
+				// API worked but is not giving you data
+				console.log(APIresHead.error);
+			} else {
+				res.json = {
+          				"English" : requestObject.q[0],
+          				"Spanish" : APIresBody.data.translations[0].translatedText
+					};
+				res.send(JSON.stringify(res.json));
+				next();
+			}
+		}
 	}
-	next();
+	APIrequest(
+	{
+		url: url,
+		method: "POST",
+		headers: {"content-type": "application/json"},
+		json: translate
+	}, APIcallback);
 }
 
-/*
-function APIcallback(err, APIresHead, APIresBody) {
-	// gets three objects as input
-	if ((err) || (APIresHead.statusCode != 200)) {
-	    // API is not working
-	    console.log("Got API error");
-	    console.log(APIresBody);
-	} else {
-	    if (APIresHead.error) {
-			// API worked but is not giving you data
-			console.log(APIresHead.error);
-	    } else {
-			//console.log("In Spanish: ", 
-		    //APIresBody.data.translations[0].translatedText);
-			//console.log("\n\nJSON was:");
-			//console.log(JSON.stringify(APIresBody, undefined, 2));
-			// print it out as a string, nicely formatted
-			//document.getElementById("answer").textContent = APIresBody.data.translations[0].translatedText;
-			var data = {"English": "", "Spanish": ""};
-			data.English = "";
-			data.Spanish = APIresBody.data.translations[0].translatedText;
-			console.log(data);
-			return data;
-	    }
+function translateHandler(req, res, next)
+{
+	let userQuery = req.query;
+	if(userQuery.english != undefined)
+	{
+		let translate =
+		{
+			"source": "en",
+			"target": "es",
+			"q": [
+				userQuery.english
+			]
+		}
+		// console.log("Want to translate: ", translate.q[0]);
+		callbackClosure(res, translate, next);
 	}
-} // end callback function
-*/
+}
 
 function fileNotFound(req, res)
 {
@@ -101,6 +76,7 @@ function fileNotFound(req, res)
 const app = express()
 app.use(express.static('public'));
 app.get('/translate', translateHandler);
+// app.post('/translate', translateHandler);
 app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );

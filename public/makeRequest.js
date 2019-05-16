@@ -21,8 +21,7 @@ function makeCorsRequest(data)
 	xhr.onload = function()
 	{
 		let json = JSON.parse(xhr.responseText);
-		console.log("Server returned\n", json);
-		document.getElementById("answer").textContent = json.english;
+		document.getElementById("answer").textContent = json.Spanish;
 		console.log(json);
 	};
 
