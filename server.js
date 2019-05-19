@@ -1,13 +1,30 @@
+/** Express stuff.  **/
 const express = require('express')
-const port = 55562
+
+/** Database stuff. **/
+const sqlite3 = require("sqlite3").verbose();
+const dbFileName = "Flashcards.db";
+const db = new sqlite3.Database(dbFileName);
+const userID = 1;
+const insertHeader = "INSERT into Flashcards\
+	(user, english, spanish, seen, correct) VALUES (" + userID + ", "; // \'" + <ENG> + "\', \'" + <SPAN> + "\', 0, 0)";
+function dumpDB() {
+		db.all ( 'SELECT * FROM Flashcards', dataCallback);
+		function dataCallback( err, data ) {console.log(data)}
+	}	
 
 //**  Google Tranlsate API stuff. **//
 const APIrequest = require('request');
+
+/** Lets go on the deep dark web yo. **/
 const http = require('http');
 
+/** Me data! **/
+const port = 55562
 const APIkey = "AIzaSyCjBxZ4uZsoN7kjmYFn6sGLwEmBmzmEsiU";
-const url = "https://translation.googleapis.com/language/translate/v2?key="+APIkey
 
+/** Metadata. **/
+const url = "https://translation.googleapis.com/language/translate/v2?key="+APIkey
 let requestObject = 
 {
 	"source": "en",
@@ -18,6 +35,7 @@ let requestObject =
 }
 
 function callbackClosure (res, translate, next) {
+	console.log("Callback closure");
 	function APIcallback (err, APIresHead, APIresBody) {
 		if ((err) || (APIresHead.statusCode != 200)) {
 			// API is not working
@@ -29,9 +47,10 @@ function callbackClosure (res, translate, next) {
 				console.log(APIresHead.error);
 			} else {
 				res.json = {
-          				"English" : requestObject.q[0],
-          				"Spanish" : APIresBody.data.translations[0].translatedText
+          				"english" : translate.q[0],
+          				"spanish" : APIresBody.data.translations[0].translatedText
 					};
+				console.log(res.json);
 				res.send(JSON.stringify(res.json));
 				next();
 			}
@@ -48,6 +67,7 @@ function callbackClosure (res, translate, next) {
 
 function translateHandler(req, res, next)
 {
+	console.log("Translate handler.");
 	let userQuery = req.query;
 	if(userQuery.english != undefined)
 	{
@@ -59,13 +79,30 @@ function translateHandler(req, res, next)
 				userQuery.english
 			]
 		}
-		// console.log("Want to translate: ", translate.q[0]);
+		console.log("Want to translate: ", translate);
 		callbackClosure(res, translate, next);
+	}
+}
+
+function storeHandler(req, res, next)
+{
+	console.log("Store handler");
+	let card = req.query;
+	if(card.english != undefined && card.spanish != undefined) {
+		console.log("Recieved:\n", card);
+		var insertCmd = insertHeader + "\'" + card.english + "\', \'" + card.spanish + "\', 0, 0)";
+		db.run(insertCmd);
+		dumpDB();
+		//res.send("{}");
+	} else {
+		console.log("Error- recieved bad input.\n", card);
+		//res.send("{}");
 	}
 }
 
 function fileNotFound(req, res)
 {
+	console.log("File not found");
 	let url = req.url;
 	res.type('text/plain');
 	res.status(404);
@@ -76,7 +113,7 @@ function fileNotFound(req, res)
 const app = express()
 app.use(express.static('public'));
 app.get('/translate', translateHandler);
-// app.post('/translate', translateHandler);
+app.get('/store', storeHandler);
 app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );

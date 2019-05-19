@@ -21,8 +21,9 @@ function makeCorsRequest(data)
 	xhr.onload = function()
 	{
 		let json = JSON.parse(xhr.responseText);
-		document.getElementById("answer").textContent = json.Spanish;
+		document.getElementById("answer").textContent = json.spanish;
 		console.log(json);
+		storeReq();
 	};
 
 	xhr.onerror = function()
@@ -31,6 +32,14 @@ function makeCorsRequest(data)
 	};
 
 	xhr.send();
+}
+
+function storeReq()
+{
+	let str = "store?english=" + document.getElementById("cardInput").value
+			+ "&spanish=" + document.getElementById("answer").textContent;
+	makeCorsRequest(str);
+	return;
 }
 
 function submitReq()
