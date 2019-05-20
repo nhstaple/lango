@@ -93,10 +93,8 @@ function storeHandler(req, res, next)
 		var insertCmd = insertHeader + "\'" + card.english + "\', \'" + card.spanish + "\', 0, 0)";
 		db.run(insertCmd);
 		dumpDB();
-		//res.send("{}");
 	} else {
 		console.log("Error- recieved bad input.\n", card);
-		//res.send("{}");
 	}
 }
 

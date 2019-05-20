@@ -7,16 +7,39 @@
 	</head>
 
 	<body id="body">
-		<p id="title">
-			lango! part 1
-		</p>
-		<div id="form">
-			<input id="cardInput" type="text" name="english" placeholder="Enter text.">
-			<button id="submitButton" onclick="submitReq()">Submit</button>
+		<!-- The header. -->
+		<div id="header">
+			<div id="buttonWrapper">
+				<button id="reviewButton" onclick="reviewReq()">
+					Start Review
+				</button>
+			</div>
+			<div id="title">
+				Lango!
+			</div>
 		</div>
-		<div id="resultBox">
-			<p id="answer">
-			</p>
+
+		<!-- The translations. -->
+		<div id="translationWrapper">
+			<div id="form">
+				<input id="cardInput" type="text" name="english" placeholder="English">			
+			</div>
+			<div id="resultBox">
+				<div id="translation">
+					Spanish
+				</div>
+			</div>
+		</div>
+
+		<!-- submit button -->
+		<div id="saveWrapper">
+			<button id="submitButton" onclick="submitReq()">Submit</button>
+			<button id="saveButton" onclick="storeReq()">Save</button>
+		</div>
+
+		<!-- Footer. -->
+		<div id="footer">
+			Username
 		</div>
 		<script src="makeRequest.js"></script>
 	</body>
