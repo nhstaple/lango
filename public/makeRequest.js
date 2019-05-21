@@ -1,5 +1,6 @@
 "strict mode";
 
+
 function createCORSRequest(method, url)
 {
 	let xhr = new XMLHttpRequest();
@@ -21,7 +22,7 @@ function makeCorsRequest(data)
 	xhr.onload = function()
 	{
 		let json = JSON.parse(xhr.responseText);
-		document.getElementById("answer").textContent = json.Spanish;
+		document.getElementById("translation").textContent = json.spanish;
 		console.log(json);
 	};
 
@@ -31,11 +32,4 @@ function makeCorsRequest(data)
 	};
 
 	xhr.send();
-}
-
-function submitReq()
-{
-	let str = "translate?english=" + document.getElementById("cardInput").value;
-	makeCorsRequest(str);
-	return;
 }

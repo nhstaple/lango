@@ -1,7 +1,51 @@
+/** Fonts and stuff. **/
+#translation, #cardInput {
+	color: grey;
+	font-size: 1.5em; /* 30/12 = 2.5 */
+}
+#title {
+	color: #606b9b;
+	font-size: 4.83em; /* 70/12 = 5.83 */
+	font-family: 'Raleway', sans-serif;
+}
+
+#reviewButton, #submitButton, #saveButton, #footer {
+	font-size: 1.08em; /* 25/12 = 2.08 */
+	color: white;
+	font-family: helvetica;
+}
+
+#reviewButton {
+	background-color: #606B9B;
+}
+
+#submitButton {
+	background-color: #606B9B;
+}
+
+#saveButton {
+	background-color: #70C7A9;
+}
+
+#footer {
+	background-color: #606B9B;
+	color: white;
+	font-family: helvetica;
+}
+
+#cardInput, #resultBox {
+	font-family: helvetica;
+}
+
+#target {
+	display: none;
+}
+
+/** Rest of the DOM. **/
 #body {
 	height: 90vh;
 	width: 90vw;
-	background-image: linear-gradient(white, lightblue);
+	background-color: rgba(255, 255, 255, 1);
 	display: flex;
 	flex-direction: column;
 	margin-top: 5vh;
@@ -10,10 +54,35 @@
 	margin-left: 5vw;
 }
 
-#title {
-	font-size: 3em;
-	color: lightblue;
+#header {
 	display: flex;
+	flex-direction: row;
+	flex: 0 0 auto;
+	align-items: center;
+}
+
+#title {
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+}
+
+#translationWrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 10vh 0 5vh 0;
+}
+
+#translation {
+	display: flex;
+	flex: 1 1 auto;
+	text-align: center;
+	justify-content: center;
+    align-items: center;
 }
 
 #form {
@@ -25,13 +94,58 @@
 #inputField {
 	display: flex;
 	flex: 0 0 auto;
+	border-style: none;
 }
 
-#submitButton {
+#cardInput {
+	display: flex;
+	flex: 1 1 auto;
+	border-style: none;
+	text-align: center;
+	width: inherit;
+}
+
+#form, #resultBox {
+	height: 38vh;
+	width: 38vw;
+	border-style: solid;
+	border-color: grey;
+	border-width: 0.25vh;
+	display: flex;
+	flex: 0 1 auto;
+	padding: 2vh 2vw 2vh 2vw;
+}
+
+#resultBox {
+	justify-content: center;
+	align-content: center;
+}
+
+#saveWrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+#buttonWrapper {
 	display: flex;
 	flex: 0 0 auto;
-	background: lightblue;
-	color: white;
-	font-size: 1.5em;
-	border: none;
+}
+
+#saveButton, #submitButton, #reviewButton {
+	display: flex;
+	flex: 0 0 auto;
+	border-radius: 12px;
+	padding: 1vh 1vw 1vh 1vw;
+}
+
+#footer {
+	padding: 1vh 0 1vh 0;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100vw;
 }
