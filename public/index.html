@@ -4,43 +4,22 @@
 		<link rel="stylesheet" href="main.css">
 		<meta name="viewport" content="width=device-width">
 		<meta name="viewport" content="height=device-height">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:400,900" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"> 
 	</head>
 
 	<body id="body">
-		<!-- The header. -->
-		<div id="header">
-			<div id="buttonWrapper">
-				<button id="reviewButton" onclick="reviewReq()">
-					Start Review
-				</button>
-			</div>
-			<div id="title">
-				Lango!
-			</div>
+
+		<div id="root">
+
 		</div>
 
-		<!-- The translations. -->
-		<div id="translationWrapper">
-			<div id="form">
-				<input id="cardInput" type="text" name="english" placeholder="English">			
-			</div>
-			<div id="resultBox">
-				<div id="translation">
-					Spanish
-				</div>
-			</div>
-		</div>
+		<!-- React. -->
+		<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+		<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
-		<!-- submit button -->
-		<div id="saveWrapper">
-			<button id="submitButton" onclick="submitReq()">Submit</button>
-			<button id="saveButton" onclick="storeReq()">Save</button>
-		</div>
-
-		<!-- Footer. -->
-		<div id="footer">
-			Username
-		</div>
+		<!-- My code. -->
+		<script src="lango.js"></script>
 		<script src="makeRequest.js"></script>
 	</body>
 </html>

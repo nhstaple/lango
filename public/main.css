@@ -6,10 +6,13 @@
 #title {
 	color: #606b9b;
 	font-size: 4.83em; /* 70/12 = 5.83 */
+	font-family: 'Raleway', sans-serif;
 }
 
 #reviewButton, #submitButton, #saveButton, #footer {
 	font-size: 1.08em; /* 25/12 = 2.08 */
+	color: white;
+	font-family: helvetica;
 }
 
 #reviewButton {
@@ -24,6 +27,21 @@
 	background-color: #70C7A9;
 }
 
+#footer {
+	background-color: #606B9B;
+	color: white;
+	font-family: helvetica;
+}
+
+#cardInput, #resultBox {
+	font-family: helvetica;
+}
+
+#target {
+	display: none;
+}
+
+/** Rest of the DOM. **/
 #body {
 	height: 90vh;
 	width: 90vw;
@@ -106,7 +124,7 @@
 #saveWrapper {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: flex-end;
 }
 
 #buttonWrapper {
@@ -117,14 +135,11 @@
 #saveButton, #submitButton, #reviewButton {
 	display: flex;
 	flex: 0 0 auto;
-	color: white;
 	border-radius: 12px;
 	padding: 1vh 1vw 1vh 1vw;
 }
 
 #footer {
-	background-color: #606B9B;
-	color: white;
 	padding: 1vh 0 1vh 0;
 	display: flex;
 	text-align: center;

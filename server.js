@@ -6,8 +6,9 @@ const sqlite3 = require("sqlite3").verbose();
 const dbFileName = "Flashcards.db";
 const db = new sqlite3.Database(dbFileName);
 const userID = 1;
-const insertHeader = "INSERT into Flashcards\
-	(user, english, spanish, seen, correct) VALUES (" + userID + ", "; // \'" + <ENG> + "\', \'" + <SPAN> + "\', 0, 0)";
+const insertCmd = "INSERT into Flashcards\
+	(user, english, spanish, seen, correct) VALUES (1, @0, @1, 0, 0)"
+
 function dumpDB() {
 		db.all ( 'SELECT * FROM Flashcards', dataCallback);
 		function dataCallback( err, data ) {console.log(data)}
@@ -34,9 +35,9 @@ let requestObject =
 	]
 }
 
-function callbackClosure (res, translate, next) {
-	console.log("Callback closure");
-	function APIcallback (err, APIresHead, APIresBody) {
+function translateClosure (res, translate, next) {
+	console.log("translate closure");
+	let APIcallback = function(err, APIresHead, APIresBody) {
 		if ((err) || (APIresHead.statusCode != 200)) {
 			// API is not working
 			console.log("Got API error");
@@ -80,7 +81,7 @@ function translateHandler(req, res, next)
 			]
 		}
 		console.log("Want to translate: ", translate);
-		callbackClosure(res, translate, next);
+		translateClosure(res, translate, next);
 	}
 }
 
@@ -88,13 +89,23 @@ function storeHandler(req, res, next)
 {
 	console.log("Store handler");
 	let card = req.query;
-	if(card.english != undefined && card.spanish != undefined) {
+	if(card.english != undefined && card.spanish != undefined && card.english != "" && card.spanish != "Spanish") {
 		console.log("Recieved:\n", card);
-		var insertCmd = insertHeader + "\'" + card.english + "\', \'" + card.spanish + "\', 0, 0)";
-		db.run(insertCmd);
-		dumpDB();
+		let storeClosure = function(err) { storeCallback(err, res); next(); }
+		db.run(insertCmd, card.english, card.spanish, storeClosure);
 	} else {
 		console.log("Error- recieved bad input.\n", card);
+	}
+}
+
+function storeCallback(err, res) {
+	if(err) {
+		console.log("Error- ", err);
+		res.json({"insert": "failed"});
+	} else {
+		console.log("Insert success");
+		res.json({"insert": "success"});
+		dumpDB();
 	}
 }
 
