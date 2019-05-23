@@ -23,7 +23,9 @@ function makeCorsRequest(data)
 	if(url.substring(0, 5) == "store") {
 		xhr.onload = function()
 		{
-			document.getElementById("translation").textContent += " Saved!";
+			if(document.getElementById("cardInput").value.length > 0) {
+				document.getElementById("translation").textContent += " Saved!";
+			}
 		};
 	}
 	// Else all other requests.
