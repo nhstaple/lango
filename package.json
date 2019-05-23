@@ -1,10 +1,11 @@
 {
   "name": "lango",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1",
+  "description": "Final project for ECS 162.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "make",
+    "make": "make",
     "start": "node server.js"
   },
   "repository": {
@@ -16,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/nhstaple/lango/issues"
   },
-  "homepage": "https://github.com/nhstaple/lango#readme",
+  "homepage": "https://github.com/nhstaple/lango",
   "dependencies": {
     "express": "^4.17.0",
     "http": "0.0.0",
