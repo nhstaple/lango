@@ -19,12 +19,23 @@ function makeCorsRequest(data)
 		return;
 	}
 
-	xhr.onload = function()
-	{
-		let json = JSON.parse(xhr.responseText);
-		document.getElementById("translation").textContent = json.spanish;
-		console.log(json);
-	};
+	// If there was a store request.
+	if(url.substring(0, 5) == "store") {
+		xhr.onload = function()
+		{
+			let json = JSON.parse(xhr.responseText);
+			document.getElementById("translation").textContent += "\r\nSaved!";
+		};
+	}
+	// Else all other requests.
+	else {
+		xhr.onload = function()
+		{
+			let json = JSON.parse(xhr.responseText);
+			document.getElementById("translation").textContent = json.spanish;
+			console.log(json);
+		};
+	}
 
 	xhr.onerror = function()
 	{

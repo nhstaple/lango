@@ -1,0 +1,26 @@
+{
+  "name": "lango",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhstaple/lango.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhstaple/lango/issues"
+  },
+  "homepage": "https://github.com/nhstaple/lango#readme",
+  "dependencies": {
+    "express": "^4.17.0",
+    "http": "0.0.0",
+    "request": "^2.88.0",
+    "sqlite3": "^4.0.8"
+  }
+}
