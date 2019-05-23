@@ -23,8 +23,7 @@ function makeCorsRequest(data)
 	if(url.substring(0, 5) == "store") {
 		xhr.onload = function()
 		{
-			let json = JSON.parse(xhr.responseText);
-			document.getElementById("translation").textContent += "\r\nSaved!";
+			document.getElementById("translation").textContent += " Saved!";
 		};
 	}
 	// Else all other requests.

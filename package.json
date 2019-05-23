@@ -1,11 +1,11 @@
 {
   "name": "lango",
-  "version": "0.1",
+  "version": "1.0.0",
   "description": "Final project for ECS 162.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    // "build": "npm install request ; npm install express; npm install http; npm install sqlite3; node dbCreate.js"
+    "build": "sh install.sh",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
