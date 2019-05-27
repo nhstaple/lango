@@ -10,11 +10,13 @@ class Login extends React.Component {
         return (
             <div id="login">
                 <button id="googleLogin">
-                    <div id="loginWrapper">
+                    <div class="loginWrapper">
                         <div id="googleIconWrapper">
-
+                            <img id="googleIcon" src="https://image.flaticon.com/teams/slug/google.jpg"></img>
                         </div>
-                        Login with Google.
+                        <div id="loginTextWrapper">
+                            Login with Google.
+                        </div>     
                     </div>
                 </button>
             </div>
@@ -48,7 +50,7 @@ class WelcomePage extends React.Component {
     }
     render() {
         return (
-            <div id="welcome_page">
+            <div id="welcomePage">
                 <Welcome />
                 <Login />
             </div>
