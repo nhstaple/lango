@@ -1,4 +1,5 @@
-'use strict';
+// lango_part1.jsx
+"use strict";
 
 /** Functions. **/
 function storeReq()
@@ -113,7 +114,8 @@ class CreatePage extends React.Component {
     }
 }
 
+/*
 ReactDOM.render(
     <CreatePage />,
-    document.getElementById('root')
-    );
+    document.getElementById('root'));
+*/
