@@ -207,7 +207,7 @@ app.get('/auth/google',
 app.get('/auth/redirect',
 	function (req, res, next) {
 	    console.log('Logged in and using cookies!')
-	    res.redirect('..');
+	    res.redirect('add.html');
 	    res.json({status: "logged in"});
 		console.log(req);
 		res.send();

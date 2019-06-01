@@ -213,8 +213,4 @@ function (_React$Component5) {
 
   return CreatePage;
 }(React.Component);
-/*
-ReactDOM.render(
-    <CreatePage />,
-    document.getElementById('root'));
-*/
+

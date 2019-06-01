@@ -114,8 +114,7 @@ class CreatePage extends React.Component {
     }
 }
 
-/*
+
 ReactDOM.render(
     <CreatePage />,
     document.getElementById('root'));
-*/
