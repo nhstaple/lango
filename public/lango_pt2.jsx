@@ -9,7 +9,7 @@ class Login extends React.Component {
     render() {
         return (
             <div id="login">
-                <button id="googleLogin">
+                <a id="googleLogin" href="auth/google">
                     <div class="loginWrapper">
                         <div id="googleIconWrapper">
                             <img id="googleIcon" src="https://image.flaticon.com/teams/slug/google.jpg"></img>
@@ -18,7 +18,7 @@ class Login extends React.Component {
                             Login with Google.
                         </div>     
                     </div>
-                </button>
+                </a>
             </div>
         );
     }
