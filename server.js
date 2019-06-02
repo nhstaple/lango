@@ -164,6 +164,10 @@ function gotProfile(accessToken, refreshToken, profile, done) {
 					user.name.givenName, user.name.familyName, user.id, function(err) {
 			if(err) {
 				console.log(err);
+			} else {
+				userDb.run("SELECT * from Users", function(err, data) {
+					console.log(data);
+				});
 			}
 		}); }
 	});
