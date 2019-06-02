@@ -145,6 +145,10 @@ function gotProfile(accessToken, refreshToken, profile, done) {
     let dbRowID = profile.id;  
 
 	userDb.run("SELECT * from Users", function(err, data) {
+		if(err) {
+			console.log("init query error");
+			console.log(err);
+		}
 		console.log("Database- ");
 		console.log(data);
 		if(data)
@@ -161,12 +165,18 @@ function gotProfile(accessToken, refreshToken, profile, done) {
 		} else {
 		console.log("user not in database");
 		userDb.run("INSERT into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
-					user.name.givenName, user.name.familyName, user.id, function(err) {
+					profile.name.givenName, profile.name.familyName, profile.id, function(err) {
 			if(err) {
+				console.log("insert err");
 				console.log(err);
 			} else {
 				userDb.run("SELECT * from Users", function(err, data) {
-					console.log(data);
+					if(err) {
+						console.log("verification error")
+						console.log(err)
+					} else {
+						console.log(data);
+					}
 				});
 			}
 		}); }
