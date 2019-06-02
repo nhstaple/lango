@@ -24,8 +24,6 @@ const googleLoginData = {
     callbackURL: '/auth/redirect'
 };
 
-passport.use( new GoogleStrategy(googleLoginData, gotProfile) );
-
 /**  Google Tranlsate API stuff. **/
 const APIrequest = require('request');
 
@@ -146,7 +144,7 @@ function isAuthenticated(req, res, next) {
 // is called (in /auth/redirect/),
 // once we actually have the profile data from Google. 
 function gotProfile(accessToken, refreshToken, profile, done) {
-    console.log("Google profile",profile);
+    console.log("Google profile", profile);
     // here is a good place to check if user is in DB,
     // and to store him in DB if not already there. 
     // Second arg to "done" will be passed into serializeUser,
@@ -182,6 +180,7 @@ passport.deserializeUser((dbRowID, done) => {
     done(null, userData);
 });
 
+passport.use( new GoogleStrategy(googleLoginData, gotProfile) );
 
 const app = express()
 

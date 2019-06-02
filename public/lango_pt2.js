@@ -121,11 +121,3 @@ function (_React$Component3) {
 }(React.Component);
 
 ReactDOM.render(React.createElement(WelcomePage, null), document.getElementById('root'));
-
-function LoginToInsert() 
-{
-	console.log("The user signed in.");
-	ReactDOM.render(
-   		React.createElement(CreatePage, null),
-    		document.getElementById('root'));
-}
