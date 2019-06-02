@@ -204,7 +204,7 @@ passport.deserializeUser((dbRowID, done) => {
     // here is a good place to look up user data in database using
     // dbRowID. Put whatever you want into an object. It ends up
     // as the property "user" of the "req" object. 
-    let userData = {userData: "data from db row goes here"};
+    let userData = {userData: dbRowID};
     done(null, userData);
 });
 
@@ -239,7 +239,7 @@ app.get('/auth/redirect',
 	passport.authenticate('google'),
 	function (req, res) {
 	    console.log('Logged in and using cookies!')
-	    res.redirect('../add.html');
+	    res.redirect("/auth/accept");
 	});
 
 // static files in /user are only available after login
@@ -255,3 +255,19 @@ app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );
 
+app.get("/auth/accept",
+	function(req, res, next) {
+		console.log("redirect check ", res.userData);
+		userDb.all("select * from Flashcards where user=" + res.userData, function(err, data) {
+			if(err) {
+				console.log("err", err);
+			} else {
+				console.log("user cards", data);
+				if(data == undefined) {
+					res.redirect("/add.html");
+				}
+			}
+			next();
+		});
+	}
+);
