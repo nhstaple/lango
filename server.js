@@ -163,27 +163,25 @@ function gotProfile(accessToken, refreshToken, profile, done) {
 				}
 			}
 		}
-		else
-		{
-			console.log("user not in database");
-			userDb.run("INSERT into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
-					profile.name.givenName, profile.name.familyName, profile.id, function(err) {
-				if(err) {
-					console.log("insert err");
-					console.log(err);
-				} else {
-					console.log("insert success");
-					userDb.run("SELECT * from Users", function(err, data) {
-						if(err) {
-							console.log("verification error")
-							console.log(err)
-						} else {
-							console.log("select success");
-							console.log(data);
-						}
-					});
-				}});
-		}
+
+		console.log("user not in database");
+		userDb.run("INSERT into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
+				profile.name.givenName, profile.name.familyName, profile.id, function(err) {
+			if(err) {
+				console.log("insert err");
+				console.log(err);
+			} else {
+				console.log("insert success");
+				userDb.all("SELECT * from Users", function(err, data) {
+					if(err) {
+						console.log("verification error")
+						console.log(err)
+					} else {
+						console.log("select success");
+						console.log(data);
+					}
+				});
+		}});
 		done(null, dbRowID); 
 	});
 }
