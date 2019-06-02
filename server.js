@@ -3,15 +3,13 @@ const express = require('express')
 
 /** Database stuff. **/
 const sqlite3 = require("sqlite3").verbose();
-const dbFileName = "Flashcards.db";
-const db = new sqlite3.Database(dbFileName);
-const userID = 1;
+const userDb = new sqlite3.Database("Users.db");
+const db = new sqlite3.Database("Flashcards.db");
 const insertCmd = "INSERT into Flashcards\
 	(user, english, spanish, seen, correct) VALUES (1, @0, @1, 0, 0)"
 
 function dumpDB() {
-		db.all ( 'SELECT * FROM Flashcards', dataCallback);
-		function dataCallback( err, data ) {console.log(data)}
+		db.all( 'SELECT * FROM Flashcards', function( err, data ) {console.log(data)});
 }	
 
 /** Last stage Google stuff. **/
@@ -145,15 +143,29 @@ function isAuthenticated(req, res, next) {
 // once we actually have the profile data from Google. 
 function gotProfile(accessToken, refreshToken, profile, done) {
     console.log("Google profile", profile);
-    // here is a good place to check if user is in DB,
-    // and to store him in DB if not already there. 
-    // Second arg to "done" will be passed into serializeUser,
-    // should be key to get user out of database.
 
-    let dbRowID = 1;  // temporary! Should be the real unique
-    // key for db Row for this user in DB table.
-    // Note: cannot be zero, has to be something that evaluates to
-    // True.  
+    let dbRowID = profile.id;  
+
+	userDb.run("SELECT * from Users", function(err, data) {
+		for(var user in data) {
+			// The user is in the data base.
+			if(user.id == dbRowID) {
+				console.log("user in database");
+				return;
+			}
+			// The user is not in the data base. 
+			else {
+				console.log("user not in database");
+				userDb.run("INSERT into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
+							user.name.givenName, user.name.familyName, user.id, function(err) {
+								if(err) {
+									console.log(err);
+								}
+							});
+				return;
+			}
+		}
+	});
 
     done(null, dbRowID); 
 }
