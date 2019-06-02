@@ -147,6 +147,8 @@ function gotProfile(accessToken, refreshToken, profile, done) {
 	userDb.run("SELECT * from Users", function(err, data) {
 		console.log("Database- ");
 		console.log(data);
+		if(data)
+		{
 		for(var user in data) {
 			console.log("user");
 			console.log(user);
@@ -156,13 +158,14 @@ function gotProfile(accessToken, refreshToken, profile, done) {
 				return;
 			}
 		}
+		} else {
 		console.log("user not in database");
 		userDb.run("INSERT into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
 					user.name.givenName, user.name.familyName, user.id, function(err) {
 			if(err) {
 				console.log(err);
 			}
-		});
+		}); }
 	});
 
     done(null, dbRowID); 
