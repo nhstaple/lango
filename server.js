@@ -206,15 +206,12 @@ app.get('/auth/google',
 app.get('/auth/redirect',
 	function (req, res, next) {
 	    console.log('Logged in and using cookies!')
-	    res.redirect('../add.html');
-	    res.json({status: "logged in"});
-		res.send();
 		next();
 	},
 	passport.authenticate('google'),
 	function (req, res) {
 	    console.log('Logged in and using cookies!')
-	    res.redirect('/user/hello.html');
+	    res.redirect('../add.html');
 	});
 
 // static files in /user are only available after login
