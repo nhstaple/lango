@@ -206,7 +206,7 @@ function (_React$Component5) {
     key: "render",
     value: function render() {
       return React.createElement("div", {
-        id: "main"
+        id: "translateMain"
       }, React.createElement(Header, null), React.createElement(Translation, null), React.createElement(SaveButton, null), React.createElement(Footer, null));
     }
   }]);

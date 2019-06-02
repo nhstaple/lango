@@ -104,7 +104,7 @@ class CreatePage extends React.Component {
     }
     render() {
         return (
-        <div id="main">
+        <div id="translateMain">
             <Header />
             <Translation />
             <SaveButton />
