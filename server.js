@@ -142,29 +142,27 @@ function isAuthenticated(req, res, next) {
 // is called (in /auth/redirect/),
 // once we actually have the profile data from Google. 
 function gotProfile(accessToken, refreshToken, profile, done) {
-    console.log("Google profile", profile);
-
     let dbRowID = profile.id;  
 
 	userDb.run("SELECT * from Users", function(err, data) {
+		console.log("Database- ");
+		console.log(data);
 		for(var user in data) {
+			console.log("user");
+			console.log(user);
 			// The user is in the data base.
 			if(user.id == dbRowID) {
 				console.log("user in database");
 				return;
 			}
-			// The user is not in the data base. 
-			else {
-				console.log("user not in database");
-				userDb.run("INSERT into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
-							user.name.givenName, user.name.familyName, user.id, function(err) {
-								if(err) {
-									console.log(err);
-								}
-							});
-				return;
-			}
 		}
+		console.log("user not in database");
+		userDb.run("INSERT into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
+					user.name.givenName, user.name.familyName, user.id, function(err) {
+			if(err) {
+				console.log(err);
+			}
+		});
 	});
 
     done(null, dbRowID); 
