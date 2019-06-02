@@ -231,6 +231,23 @@ app.get('/*',express.static('public'));
 app.get('/auth/google',
 	passport.authenticate('google',{ scope: ['profile'] }) );
 
+app.get("/auth/accept",
+	function(req, res, next) {
+		console.log("redirect check ", res.userData);
+		userDb.all("select * from Flashcards where user=" + res.userData, function(err, data) {
+			if(err) {
+				console.log("err", err);
+			} else {
+				console.log("user cards", data);
+				if(data == undefined) {
+					res.redirect("/add.html");
+				}
+			}
+			next();
+		});
+	}
+);
+
 app.get('/auth/redirect',
 	function (req, res, next) {
 	    console.log('Logged in and using cookies!')
@@ -255,19 +272,3 @@ app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );
 
-app.get("/auth/accept",
-	function(req, res, next) {
-		console.log("redirect check ", res.userData);
-		userDb.all("select * from Flashcards where user=" + res.userData, function(err, data) {
-			if(err) {
-				console.log("err", err);
-			} else {
-				console.log("user cards", data);
-				if(data == undefined) {
-					res.redirect("/add.html");
-				}
-			}
-			next();
-		});
-	}
-);
