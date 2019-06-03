@@ -150,39 +150,27 @@ function gotProfile(accessToken, refreshToken, profile, done) {
 			console.log(err);
 		}
 		console.log("Database- ");
-		if(data)
-		{
-			console.log(data);
-			for(var user in data) {
-				console.log("user");
-				console.log(user);
-				// The user is in the data base.
-				if(user.id == dbRowID) {
-					console.log("user in database");
-					return;
-				}
-			}
-		}
+		console.log(data);
 
 		console.log("user not in database");
-		userDb.run("INSERT into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
-				profile.name.givenName, profile.name.familyName, profile.id, function(err) {
+		userDb.run("INSERT or replace into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
+				profile.name.givenName, profile.name.familyName, dbRowID, function(err) {
 			if(err) {
 				console.log("insert err");
 				console.log(err);
 			} else {
 				console.log("insert success");
-				userDb.all("SELECT * from Users", function(err, data) {
+				userDb.all("SELECT * from Users", function(err, Data) {
 					if(err) {
 						console.log("verification error")
 						console.log(err)
 					} else {
-						console.log("select success");
-						console.log(data);
+						console.log(Data);
 					}
+					done(null, dbRowID); 
 				});
-		}});
-		done(null, dbRowID); 
+			}
+		});
 	});
 }
 
@@ -204,7 +192,8 @@ passport.deserializeUser((dbRowID, done) => {
     // here is a good place to look up user data in database using
     // dbRowID. Put whatever you want into an object. It ends up
     // as the property "user" of the "req" object. 
-    let userData = {userData: dbRowID};
+	let userData = {userData: dbRowID};
+	console.log(userData);
     done(null, userData);
 });
 
@@ -233,7 +222,7 @@ app.get('/auth/google',
 
 app.get("/auth/accept",
 	function(req, res, next) {
-		console.log("redirect check ", res.userData);
+		console.log("redirect check ", res.user);
 		userDb.all("select * from Flashcards where user=" + res.userData, function(err, data) {
 			if(err) {
 				console.log("err", err);
@@ -255,7 +244,7 @@ app.get('/auth/redirect',
 	},
 	passport.authenticate('google'),
 	function (req, res) {
-	    console.log('Logged in and using cookies!')
+		console.log('Logged in and using cookies!')
 	    res.redirect("/auth/accept");
 	});
 
