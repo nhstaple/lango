@@ -69,9 +69,10 @@ function (_React$Component) {
       return React.createElement("div", {
         id: "header"
       }, React.createElement("div", {
-        id: "buttonWrapper"
-      }, React.createElement("button", {
-        id: "reviewButton"
+        className: "buttonWrapper"
+      }, React.createElement("a", {
+        id: "reviewButton",
+        href: "/user/review.html"
       }, "Start Review")), React.createElement("div", {
         id: "title"
       }, "Lango!"));
@@ -176,7 +177,7 @@ function (_React$Component4) {
     value: function render() {
       return React.createElement("div", {
         id: "footer"
-      }, "Nick Stapleton");
+      }, "User Name");
     }
   }]);
 
@@ -214,6 +215,4 @@ function (_React$Component5) {
   return CreatePage;
 }(React.Component);
 
-ReactDOM.render(
-  React.createElement(CreatePage, null),
-   document.getElementById('root'));
+ReactDOM.render(React.createElement(CreatePage, null), document.getElementById('root'));

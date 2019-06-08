@@ -5,8 +5,6 @@ const express = require('express')
 const sqlite3 = require("sqlite3").verbose();
 const userDb = new sqlite3.Database("Users.db");
 const db = new sqlite3.Database("Flashcards.db");
-const insertCmd = "INSERT into Flashcards\
-	(user, english, spanish, seen, correct) VALUES (1, @0, @1, 0, 0)"
 
 function dumpDB() {
 		db.all( 'SELECT * FROM Flashcards', function( err, data ) {console.log(data)});
@@ -100,7 +98,10 @@ function storeHandler(req, res, next)
 	if(card.english != undefined && card.spanish != undefined && card.english != "" && card.spanish != "Spanish") {
 		console.log("Recieved:\n", card);
 		let storeClosure = function(err) { storeCallback(err, res); next(); }
-		db.run(insertCmd, card.english, card.spanish, storeClosure);
+		const insertCmd = "INSERT into Flashcards\
+		       (user, english, spanish, seen, correct)\
+		VALUES (  @0,       @1,     @2,    0,       0)";
+		db.run(insertCmd, req.user.userData, card.english, card.spanish, storeClosure);
 	} else {
 		console.log("Error- recieved bad input.\n", card);
 	}
@@ -193,7 +194,6 @@ passport.deserializeUser((dbRowID, done) => {
     // dbRowID. Put whatever you want into an object. It ends up
     // as the property "user" of the "req" object. 
 	let userData = {userData: dbRowID};
-	console.log(userData);
     done(null, userData);
 });
 
@@ -215,21 +215,25 @@ app.use(passport.initialize());
 // If there is a valid cookie, will call deserializeUser()
 app.use(passport.session()); 
 // Public static files
-app.get('/*',express.static('public'));
+app.get('/*', express.static('public'));
 
 app.get('/auth/google',
 	passport.authenticate('google',{ scope: ['profile'] }) );
 
 app.get("/auth/accept",
 	function(req, res, next) {
-		console.log("redirect check ", res.user);
-		userDb.all("select * from Flashcards where user=" + res.userData, function(err, data) {
+		console.log(req.user.userData);
+		var cmd = "SELECT COUNT(user) FROM Flashcards Where user=" + req.user.userData;
+		console.log(cmd);
+		db.all(cmd, function(err, data) {
 			if(err) {
 				console.log("err", err);
 			} else {
-				console.log("user cards", data);
-				if(data == undefined) {
-					res.redirect("/add.html");
+				console.log(data);
+				if(data[0]["COUNT(user)"] == 0) {
+					res.redirect("/user/add.html");
+				} else{
+					res.redirect("/user/review.html");
 				}
 			}
 			next();
@@ -255,8 +259,13 @@ app.get('/user/*',
        ); 
 
 
-app.get('/translate', translateHandler);
-app.get('/store', storeHandler);
+app.get('/user/translate',
+	isAuthenticated,
+	translateHandler);
+app.get('/user/store', 
+	isAuthenticated,
+	storeHandler);
+
 app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );
