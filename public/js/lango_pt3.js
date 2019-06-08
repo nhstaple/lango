@@ -107,6 +107,7 @@ function (_React$Component3) {
     key: "render",
     value: function render(props) {
       return React.createElement("div", {
+        id: "front",
         className: "card-side side-front"
       }, React.createElement("div", {
         className: "card-side-container"
@@ -135,6 +136,7 @@ function (_React$Component4) {
     key: "render",
     value: function render(props) {
       return React.createElement("div", {
+        id: "back",
         className: "card-side side-back"
       }, React.createElement("div", {
         className: "card-side-container"
@@ -164,6 +166,7 @@ function (_React$Component5) {
       if (event.charCode == 13) {
         // check the input and flip the card
         console.log("Check!");
+        document.getElementById("card").classList.add("is-flipped");
       }
     }
   }, {
@@ -172,6 +175,7 @@ function (_React$Component5) {
       return React.createElement("div", {
         id: "reviewMain"
       }, React.createElement(Header, null), React.createElement("div", {
+        id: "card",
         className: "card-container"
       }, React.createElement("div", {
         className: "card-body"

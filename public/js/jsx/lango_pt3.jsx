@@ -45,7 +45,7 @@ class Footer extends React.Component {
 class CardFront extends React.Component {
   render(props) {
     return(
-      <div className='card-side side-front'>
+      <div id="front" className='card-side side-front'>
          <div className='card-side-container'>
               <h2 id='trans'>{this.props.text}</h2>
         </div>
@@ -58,7 +58,7 @@ class CardFront extends React.Component {
 class CardBack extends React.Component {
   render(props) {
     return(
-      <div className='card-side side-back'>
+      <div id="back" className='card-side side-back'>
          <div className='card-side-container'>
               <h2 id='congrats'>{this.props.text}</h2>
         </div>
@@ -72,13 +72,15 @@ class CardWrapper extends React.Component {
     if (event.charCode == 13) {
       // check the input and flip the card
       console.log("Check!");
+      document.getElementById("card").classList.add("is-flipped");
+      document.getElementById("front").classList.add("is-flipped");
     }
   }
   render() {
     return(
       <div id="reviewMain">
         <Header />
-        <div className='card-container'>
+        <div id="card" className='card-container'>
           <div className='card-body'>
             <CardBack text="Correct!" />
 

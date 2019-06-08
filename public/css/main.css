@@ -10,7 +10,7 @@
 	font-family: 'Raleway', sans-serif;
 }
 
-#reviewButton, #submitButton, #saveButton, #footer, #reviewMain {
+#reviewButton, #submitButton, #saveButton, #footer {
 	font-size: 1.08em; /* 25/12 = 2.08 */
 	color: white;
 	font-family: helvetica;
@@ -153,7 +153,7 @@
 	width: 100%;
 }
 
-#translateMain {
+#translateMain, #reviewMain {
 	padding: 5vh 5vw 0 5vw;
     width: 100%;
 }
