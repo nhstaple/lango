@@ -186,7 +186,7 @@ function (_React$Component5) {
         type: "text",
         name: "english",
         placeholder: "English",
-        onKeyPress: checkReturn
+        onKeyPress: this.checkReturn
       })), React.createElement(Footer, null));
     }
   }]);

@@ -86,7 +86,7 @@ class CardWrapper extends React.Component {
           </div>
         </div>
         <div id="form">
-					<textarea id="cardInput" type="text" name="english" placeholder="English" onKeyPress={checkReturn}>
+					<textarea id="cardInput" type="text" name="english" placeholder="English" onKeyPress={this.checkReturn}>
           </textarea>
 				</div>
         <Footer />
