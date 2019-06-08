@@ -223,14 +223,14 @@ app.get('/auth/google',
 app.get("/auth/accept",
 	function(req, res, next) {
 		console.log(req.user.userData);
-		var cmd = "select * from Flashcards where GoogleID=" + req.user.userData;
+		var cmd = "SELECT COUNT(user) FROM Flashcards Where user=" + req.user.userData;
 		console.log(cmd);
-		userDb.all(cmd, function(err, data) {
+		db.all(cmd, function(err, data) {
 			if(err) {
 				console.log("err", err);
 			} else {
-				console.log("user cards", data);
-				if(data == undefined) {
+				console.log("user cards " + data);
+				if(data == 0) {
 					res.redirect("/user/add.html");
 				}
 			}
