@@ -91,4 +91,4 @@ class CardWrapper extends React.Component {
 }
 
 // Render Card component
-ReactDOM.render(<Card />, cardContainer);
+ReactDOM.render(<CardWrapper />, cardContainer);

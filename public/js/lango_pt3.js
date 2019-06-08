@@ -200,4 +200,4 @@ function (_React$Component6) {
 }(React.Component); // Render Card component
 
 
-ReactDOM.render(React.createElement(Card, null), cardContainer);
+ReactDOM.render(React.createElement(CardWrapper, null), cardContainer);
