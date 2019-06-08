@@ -34,7 +34,7 @@ function cardReq() {
   return;
 }
 
-const cardContainer = document.getElementById("root");
+var cardContainer = document.getElementById("root"); // React component for form inputs
 
 var CardInput =
 /*#__PURE__*/
@@ -174,6 +174,29 @@ function (_React$Component5) {
   }]);
 
   return Card;
+}(React.Component);
+
+var CardWrapper =
+/*#__PURE__*/
+function (_React$Component6) {
+  _inherits(CardWrapper, _React$Component6);
+
+  function CardWrapper() {
+    _classCallCheck(this, CardWrapper);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CardWrapper).apply(this, arguments));
+  }
+
+  _createClass(CardWrapper, [{
+    key: "render",
+    value: function render() {
+      return React.createElement("div", {
+        id: "card-wrapper"
+      }, React.createElement(Card, null));
+    }
+  }]);
+
+  return CardWrapper;
 }(React.Component); // Render Card component
 
 

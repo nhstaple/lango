@@ -80,5 +80,15 @@ class Card extends React.Component {
   }
 }
 
+class CardWrapper extends React.Component {
+  render() {
+    return(
+      <div id='card-wrapper'>
+        <Card />
+      </div>
+    )
+  }
+}
+
 // Render Card component
 ReactDOM.render(<Card />, cardContainer);
