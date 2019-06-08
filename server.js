@@ -215,7 +215,7 @@ app.use(passport.initialize());
 // If there is a valid cookie, will call deserializeUser()
 app.use(passport.session()); 
 // Public static files
-app.get('/*',express.static('public'));
+app.get('/*', express.static('public'));
 
 app.get('/auth/google',
 	passport.authenticate('google',{ scope: ['profile'] }) );
@@ -229,7 +229,7 @@ app.get("/auth/accept",
 			} else {
 				console.log("user cards", data);
 				if(data == undefined) {
-					res.redirect("/add.html");
+					res.redirect("/user/add.html");
 				}
 			}
 			next();
