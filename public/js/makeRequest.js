@@ -1,5 +1,9 @@
 "strict mode";
 
+function getUsername()
+{
+	makeCorsRequest("name");
+}
 
 function createCORSRequest(method, url)
 {
