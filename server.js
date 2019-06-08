@@ -222,8 +222,11 @@ app.get('/auth/google',
 
 app.get("/auth/accept",
 	function(req, res, next) {
-		console.log("redirect check ", res.user);
-		userDb.all("select * from Flashcards where user=" + res.userData, function(err, data) {
+		console.log("userData: " + res.userData);
+		console.log("user " + res.user);
+		var cmd = "select * from Flashcards where user=" + req.userData;
+		console.log(cmd);
+		userDb.all(cmd, function(err, data) {
 			if(err) {
 				console.log("err", err);
 			} else {
