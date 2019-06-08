@@ -98,7 +98,6 @@ function storeHandler(req, res, next)
 	if(card.english != undefined && card.spanish != undefined && card.english != "" && card.spanish != "Spanish") {
 		console.log("Recieved:\n", card);
 		let storeClosure = function(err) { storeCallback(err, res); next(); }
-		req.user.userData
 		const insertCmd = "INSERT into Flashcards\
 		       (user, english, spanish, seen, correct)\
 		VALUES (  @0,       @1,     @2,    0,       0)";
