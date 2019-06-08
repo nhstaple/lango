@@ -38,6 +38,9 @@ function makeCorsRequest(data)
 {
 	let url = data;
 	let xhr = createCORSRequest('GET', url);
+	const store = "store";
+	const name = "name";
+	const card = "card";
 
 	if(!xhr)
 	{
@@ -46,13 +49,13 @@ function makeCorsRequest(data)
 	}
 
 	// If there was a store request.
-	if(url.substring(0, length("store")) == "store") {
+	if(url.substring(0, store.length) == "store") {
 		xhr.onload = function()
 		{
 			saveFlashcard();
 		};
 	}
-	else if(url.substring(0, length("name")) == "name")
+	else if(url.substring(0, name.length) == "name")
 	{
 		xhr.onload = function()
 		{
@@ -60,7 +63,7 @@ function makeCorsRequest(data)
 		}
 	}
 	// Else there was a request for a card.
-	else if(url.substring(0, length("card"))  == "card")
+	else if(url.substring(0, card.length)  == "card")
 	{
 		xhr.onload = function()
 		{
