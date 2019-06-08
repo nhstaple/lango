@@ -16,28 +16,30 @@ function cardReq()
 
 const cardContainer = document.getElementById("root");
 
-// React component for form inputs
-class CardInput extends React.Component {
+/** Header. **/
+class Header extends React.Component {
   render() {
-    return(
-      <fieldset>
-        <input name={this.props.name} id={this.props.id} type={this.props.type || 'text'} placeholder={this.props.placeholder} required />
-      </fieldset>
-    )
+      return (
+      <div id="header">
+          <div id="buttonWrapper">
+              <button id="addRedirect">Add</button>
+          </div>
+          <div id="title">Lango!</div>
+      </div>
+      );
   }
 }
 
-// React component for textarea
-class CardTextarea extends React.Component {
+/** Footer. **/
+class Footer extends React.Component {
   render() {
-    return(
-      <fieldset>
-        <textarea name={this.props.name} id={this.props.id} placeholder={this.props.placeholder} required ></textarea>
-      </fieldset>
-    )
+      return (
+      <div id="footer">
+          User Name
+      </div>
+      );
   }
 }
-
 
 // React component for the front side of the card
 class CardFront extends React.Component {
@@ -68,7 +70,8 @@ class CardBack extends React.Component {
 class CardWrapper extends React.Component {
   render() {
     return(
-      <div id='card-wrapper'>
+      <div id="reviewMain">
+        <Header />
         <div className='card-container'>
           <div className='card-body'>
             <CardBack text="Correct!" />
@@ -76,6 +79,11 @@ class CardWrapper extends React.Component {
             <CardFront text="Volare" />
           </div>
         </div>
+        <div id="form">
+					<textarea id="cardInput" type="text" name="english" placeholder="English" onKeyPress={checkReturn}>
+                    </textarea>
+				</div>
+        <Footer />
       </div>
     )
   }

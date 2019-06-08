@@ -34,60 +34,61 @@ function cardReq() {
   return;
 }
 
-var cardContainer = document.getElementById("root"); // React component for form inputs
+var cardContainer = document.getElementById("root");
+/** Header. **/
 
-var CardInput =
+var Header =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(CardInput, _React$Component);
+  _inherits(Header, _React$Component);
 
-  function CardInput() {
-    _classCallCheck(this, CardInput);
+  function Header() {
+    _classCallCheck(this, Header);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(CardInput).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Header).apply(this, arguments));
   }
 
-  _createClass(CardInput, [{
+  _createClass(Header, [{
     key: "render",
     value: function render() {
-      return React.createElement("fieldset", null, React.createElement("input", {
-        name: this.props.name,
-        id: this.props.id,
-        type: this.props.type || 'text',
-        placeholder: this.props.placeholder,
-        required: true
-      }));
+      return React.createElement("div", {
+        id: "header"
+      }, React.createElement("div", {
+        id: "buttonWrapper"
+      }, React.createElement("button", {
+        id: "addRedirect"
+      }, "Add")), React.createElement("div", {
+        id: "title"
+      }, "Lango!"));
     }
   }]);
 
-  return CardInput;
-}(React.Component); // React component for textarea
+  return Header;
+}(React.Component);
+/** Footer. **/
 
 
-var CardTextarea =
+var Footer =
 /*#__PURE__*/
 function (_React$Component2) {
-  _inherits(CardTextarea, _React$Component2);
+  _inherits(Footer, _React$Component2);
 
-  function CardTextarea() {
-    _classCallCheck(this, CardTextarea);
+  function Footer() {
+    _classCallCheck(this, Footer);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(CardTextarea).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Footer).apply(this, arguments));
   }
 
-  _createClass(CardTextarea, [{
+  _createClass(Footer, [{
     key: "render",
     value: function render() {
-      return React.createElement("fieldset", null, React.createElement("textarea", {
-        name: this.props.name,
-        id: this.props.id,
-        placeholder: this.props.placeholder,
-        required: true
-      }));
+      return React.createElement("div", {
+        id: "footer"
+      }, "User Name");
     }
   }]);
 
-  return CardTextarea;
+  return Footer;
 }(React.Component); // React component for the front side of the card
 
 
@@ -161,8 +162,8 @@ function (_React$Component5) {
     key: "render",
     value: function render() {
       return React.createElement("div", {
-        id: "card-wrapper"
-      }, React.createElement("div", {
+        id: "reviewMain"
+      }, React.createElement(Header, null), React.createElement("div", {
         className: "card-container"
       }, React.createElement("div", {
         className: "card-body"
@@ -170,7 +171,15 @@ function (_React$Component5) {
         text: "Correct!"
       }), React.createElement(CardFront, {
         text: "Volare"
-      }))));
+      }))), React.createElement("div", {
+        id: "form"
+      }, React.createElement("textarea", {
+        id: "cardInput",
+        type: "text",
+        name: "english",
+        placeholder: "English",
+        onKeyPress: checkReturn
+      })), React.createElement(Footer, null));
     }
   }]);
 
