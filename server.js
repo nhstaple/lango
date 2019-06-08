@@ -222,9 +222,8 @@ app.get('/auth/google',
 
 app.get("/auth/accept",
 	function(req, res, next) {
-		console.log("userData: " + res.userData);
-		console.log("user " + res.user);
-		var cmd = "select * from Flashcards where user=" + req.userData;
+		console.log(req.user.userData);
+		var cmd = "select * from Flashcards where GoogleID=" + req.user.userData;
 		console.log(cmd);
 		userDb.all(cmd, function(err, data) {
 			if(err) {
