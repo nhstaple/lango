@@ -36,8 +36,8 @@ class Header extends React.Component {
     render() {
         return (
         <div id="header">
-            <div id="buttonWrapper">
-                <button id="reviewButton">Start Review</button>
+            <div className="buttonWrapper">
+                <a id="reviewButton" href="/user/review.html">Start Review</a>
             </div>
             <div id="title">Lango!</div>
         </div>
@@ -90,7 +90,7 @@ class Footer extends React.Component {
     render() {
         return (
         <div id="footer">
-            Nick Stapleton
+            User Name
         </div>
         );
     }

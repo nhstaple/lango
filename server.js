@@ -3,15 +3,11 @@ const express = require('express')
 
 /** Database stuff. **/
 const sqlite3 = require("sqlite3").verbose();
-const dbFileName = "Flashcards.db";
-const db = new sqlite3.Database(dbFileName);
-const userID = 1;
-const insertCmd = "INSERT into Flashcards\
-	(user, english, spanish, seen, correct) VALUES (1, @0, @1, 0, 0)"
+const userDb = new sqlite3.Database("Users.db");
+const db = new sqlite3.Database("Flashcards.db");
 
 function dumpDB() {
-		db.all ( 'SELECT * FROM Flashcards', dataCallback);
-		function dataCallback( err, data ) {console.log(data)}
+		db.all( 'SELECT * FROM Flashcards', function( err, data ) {console.log(data)});
 }	
 
 /** Last stage Google stuff. **/
@@ -102,7 +98,10 @@ function storeHandler(req, res, next)
 	if(card.english != undefined && card.spanish != undefined && card.english != "" && card.spanish != "Spanish") {
 		console.log("Recieved:\n", card);
 		let storeClosure = function(err) { storeCallback(err, res); next(); }
-		db.run(insertCmd, card.english, card.spanish, storeClosure);
+		const insertCmd = "INSERT into Flashcards\
+		       (user, english, spanish, seen, correct)\
+		VALUES (  @0,       @1,     @2,    0,       0)";
+		db.run(insertCmd, req.user.userData, card.english, card.spanish, storeClosure);
 	} else {
 		console.log("Error- recieved bad input.\n", card);
 	}
@@ -144,18 +143,36 @@ function isAuthenticated(req, res, next) {
 // is called (in /auth/redirect/),
 // once we actually have the profile data from Google. 
 function gotProfile(accessToken, refreshToken, profile, done) {
-    console.log("Google profile", profile);
-    // here is a good place to check if user is in DB,
-    // and to store him in DB if not already there. 
-    // Second arg to "done" will be passed into serializeUser,
-    // should be key to get user out of database.
+    let dbRowID = profile.id;  
 
-    let dbRowID = 1;  // temporary! Should be the real unique
-    // key for db Row for this user in DB table.
-    // Note: cannot be zero, has to be something that evaluates to
-    // True.  
+	userDb.run("SELECT * from Users", function(err, data) {
+		if(err) {
+			console.log("init query error");
+			console.log(err);
+		}
+		console.log("Database- ");
+		console.log(data);
 
-    done(null, dbRowID); 
+		console.log("user not in database");
+		userDb.run("INSERT or replace into Users (FirstName, LastName, GoogleID) VALUES (@0, @1, @2)",
+				profile.name.givenName, profile.name.familyName, dbRowID, function(err) {
+			if(err) {
+				console.log("insert err");
+				console.log(err);
+			} else {
+				console.log("insert success");
+				userDb.all("SELECT * from Users", function(err, Data) {
+					if(err) {
+						console.log("verification error")
+						console.log(err)
+					} else {
+						console.log(Data);
+					}
+					done(null, dbRowID); 
+				});
+			}
+		});
+	});
 }
 
 // Part of Server's sesssion set-up.  
@@ -176,7 +193,7 @@ passport.deserializeUser((dbRowID, done) => {
     // here is a good place to look up user data in database using
     // dbRowID. Put whatever you want into an object. It ends up
     // as the property "user" of the "req" object. 
-    let userData = {userData: "data from db row goes here"};
+	let userData = {userData: dbRowID};
     done(null, userData);
 });
 
@@ -198,19 +215,41 @@ app.use(passport.initialize());
 // If there is a valid cookie, will call deserializeUser()
 app.use(passport.session()); 
 // Public static files
-app.get('/*',express.static('public'));
+app.get('/*', express.static('public'));
 
 app.get('/auth/google',
 	passport.authenticate('google',{ scope: ['profile'] }) );
 
+app.get("/auth/accept",
+	function(req, res, next) {
+		console.log(req.user.userData);
+		var cmd = "SELECT COUNT(user) FROM Flashcards Where user=" + req.user.userData;
+		console.log(cmd);
+		db.all(cmd, function(err, data) {
+			if(err) {
+				console.log("err", err);
+			} else {
+				console.log(data);
+				if(data[0]["COUNT(user)"] == 0) {
+					res.redirect("/user/add.html");
+				} else{
+					res.redirect("/user/review.html");
+				}
+			}
+			next();
+		});
+	}
+);
+
 app.get('/auth/redirect',
 	function (req, res, next) {
 	    console.log('Logged in and using cookies!')
-	    res.redirect('../add.html');
-	    res.json({status: "logged in"});
-		console.log(req);
-		res.send();
 		next();
+	},
+	passport.authenticate('google'),
+	function (req, res) {
+		console.log('Logged in and using cookies!')
+	    res.redirect("/auth/accept");
 	});
 
 // static files in /user are only available after login
@@ -220,8 +259,13 @@ app.get('/user/*',
        ); 
 
 
-app.get('/translate', translateHandler);
-app.get('/store', storeHandler);
+app.get('/user/translate',
+	isAuthenticated,
+	translateHandler);
+app.get('/user/store', 
+	isAuthenticated,
+	storeHandler);
+
 app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );
