@@ -36,7 +36,7 @@ class Header extends React.Component {
     render() {
         return (
         <div id="header">
-            <div id="buttonWrapper">
+            <div className="buttonWrapper">
                 <button id="reviewButton">Start Review</button>
             </div>
             <div id="title">Lango!</div>

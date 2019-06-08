@@ -21,8 +21,8 @@ class Header extends React.Component {
   render() {
       return (
       <div id="header">
-          <div id="buttonWrapper">
-              <button id="addRedirect">Add</button>
+          <div className="buttonWrapper">
+              <a id="addRedirect" href="/user/add.html">Add</a>
           </div>
           <div id="title">Lango!</div>
       </div>
@@ -68,12 +68,14 @@ class CardBack extends React.Component {
 }
 
 class CardWrapper extends React.Component {
+  flipCard()
+  {
+    document.getElementById("card").classList.add("is-flipped");
+    document.getElementById("front").classList.add("is-flipped");
+  }
   checkReturn(event) {
     if (event.charCode == 13) {
-      // check the input and flip the card
-      console.log("Check!");
-      document.getElementById("card").classList.add("is-flipped");
-      document.getElementById("front").classList.add("is-flipped");
+      flipCard();
     }
   }
   render() {
@@ -81,6 +83,9 @@ class CardWrapper extends React.Component {
       <div id="reviewMain">
         <Header />
         <div id="card" className='card-container'>
+          <div className="buttonWrapper">
+            <button id="flipButton" onClick={this.flipCard}>Check Answer</button>
+          </div>
           <div className='card-body'>
             <CardBack text="Correct!" />
 

@@ -10,7 +10,7 @@
 	font-family: 'Raleway', sans-serif;
 }
 
-#reviewButton, #submitButton, #saveButton, #footer {
+#reviewButton, #submitButton, #saveButton, #addRedirect, #flipButton, #footer {
 	font-size: 1.08em; /* 25/12 = 2.08 */
 	color: white;
 	font-family: helvetica;
@@ -22,6 +22,15 @@
 
 #submitButton {
 	background-color: #606B9B;
+}
+
+#addRedirect {
+	background-color: #606B9B;
+	text-decoration: none;
+}
+
+#flipButton {
+	background-color: #70C7A9;
 }
 
 #saveButton {
@@ -64,7 +73,8 @@
     width: 100vw;
     display: flex;
     flex: 1 1 auto;
-    justify-content: center;
+	justify-content: center;
+	z-index: -1;
 }
 
 #translationWrapper {
@@ -124,15 +134,16 @@
 	justify-content: flex-end;
 }
 
-#buttonWrapper {
+.buttonWrapper {
 	display: flex;
 	flex: 0 0 auto;
 }
 
-#saveButton, #submitButton, #reviewButton {
+#saveButton, #submitButton, #reviewButton, #addRedirect, #flipButton {
 	display: flex;
 	flex: 0 0 auto;
 	border-radius: 12px;
+	border-width: 0;
 	padding: 1vh 1vw 1vh 1vw;
 }
 

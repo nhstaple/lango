@@ -54,9 +54,10 @@ function (_React$Component) {
       return React.createElement("div", {
         id: "header"
       }, React.createElement("div", {
-        id: "buttonWrapper"
-      }, React.createElement("button", {
-        id: "addRedirect"
+        className: "buttonWrapper"
+      }, React.createElement("a", {
+        id: "addRedirect",
+        href: "/user/add.html"
       }, "Add")), React.createElement("div", {
         id: "title"
       }, "Lango!"));
@@ -161,12 +162,16 @@ function (_React$Component5) {
   }
 
   _createClass(CardWrapper, [{
+    key: "flipCard",
+    value: function flipCard() {
+      document.getElementById("card").classList.add("is-flipped");
+      document.getElementById("front").classList.add("is-flipped");
+    }
+  }, {
     key: "checkReturn",
     value: function checkReturn(event) {
       if (event.charCode == 13) {
-        // check the input and flip the card
-        console.log("Check!");
-        document.getElementById("card").classList.add("is-flipped");
+        flipCard();
       }
     }
   }, {
@@ -178,6 +183,11 @@ function (_React$Component5) {
         id: "card",
         className: "card-container"
       }, React.createElement("div", {
+        className: "buttonWrapper"
+      }, React.createElement("button", {
+        id: "flipButton",
+        onClick: this.flipCard
+      }, "Check Answer")), React.createElement("div", {
         className: "card-body"
       }, React.createElement(CardBack, {
         text: "Correct!"
