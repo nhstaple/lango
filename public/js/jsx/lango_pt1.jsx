@@ -90,7 +90,7 @@ class Footer extends React.Component {
     render() {
         return (
         <div id="footer">
-            Nick Stapleton
+            User Name
         </div>
         );
     }

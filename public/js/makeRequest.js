@@ -28,6 +28,14 @@ function makeCorsRequest(data)
 			}
 		};
 	}
+	// Else there was a request for a card.
+	else if(url == "card")
+	{
+		xhr.onload = function()
+		{
+			
+		};
+	}
 	// Else all other requests.
 	else {
 		xhr.onload = function()
