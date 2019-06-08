@@ -260,8 +260,13 @@ app.get('/user/*',
        ); 
 
 
-app.get('/user/translate', translateHandler);
-app.get('/user/store', storeHandler);
+app.get('/user/translate',
+	isAuthenticated,
+	translateHandler);
+app.get('/user/store', 
+	isAuthenticated,
+	storeHandler);
+	
 app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );
