@@ -94,8 +94,8 @@ function translateHandler(req, res, next)
 function nameHandler(req, res, next)
 {
 	console.log("Getting username handler");
-	res.JSON({firstName: "Server",
-			  lastName: "162"});
+	res.JSON({firstName: req.user.firstName,
+			  lastName:  req.user.lastName});
 }
 
 function storeHandler(req, res, next)
@@ -209,9 +209,13 @@ passport.deserializeUser((dbRowID, done) => {
 			let userData = {userData: dbRowID};
 			done(null, userData);
 		}
-		else {
-			let userData = {userData: dbRowID};
-			console.log(data);
+		else if(data[0]) {
+			let userData = {
+				userData: dbRowID,
+				firstName: data[0].FirstName,
+				lastName: data[0].LastName
+			};
+			console.log(userData);
 			done(null, userData);
 		}
 	});
