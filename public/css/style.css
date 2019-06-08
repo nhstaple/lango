@@ -26,10 +26,6 @@ h2 {
   font-weight: 400;
 }
 
-#reviewMain{
-  width: 100%;
-}
-
 .card-side-container {
     display: flex;
     flex-direction: column;

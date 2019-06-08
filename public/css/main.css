@@ -10,7 +10,7 @@
 	font-family: 'Raleway', sans-serif;
 }
 
-#reviewButton, #submitButton, #saveButton, #footer {
+#reviewButton, #submitButton, #saveButton, #footer, #reviewMain {
 	font-size: 1.08em; /* 25/12 = 2.08 */
 	color: white;
 	font-family: helvetica;
