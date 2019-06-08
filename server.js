@@ -229,9 +229,12 @@ app.get("/auth/accept",
 			if(err) {
 				console.log("err", err);
 			} else {
-				console.log("user cards " + data);
-				if(data == 0) {
+				console.log(data);
+				console.log(data[0]["COUNT(user)"]);
+				if(data[0]["COUNT(user)"] == 0) {
 					res.redirect("/user/add.html");
+				} else{
+					res.redirect("/user/review.html");
 				}
 			}
 			next();
@@ -257,8 +260,8 @@ app.get('/user/*',
        ); 
 
 
-app.get('/translate', translateHandler);
-app.get('/store', storeHandler);
+app.get('/user/translate', translateHandler);
+app.get('/user/store', storeHandler);
 app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );
