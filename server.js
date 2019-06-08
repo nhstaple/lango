@@ -217,6 +217,9 @@ passport.deserializeUser((dbRowID, done) => {
 			};
 			console.log(userData);
 			done(null, userData);
+		} else {
+			let userData = {userData: dbRowID};
+			done(null, userData);
 		}
 	});
 
