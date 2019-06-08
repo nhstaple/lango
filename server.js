@@ -5,8 +5,6 @@ const express = require('express')
 const sqlite3 = require("sqlite3").verbose();
 const userDb = new sqlite3.Database("Users.db");
 const db = new sqlite3.Database("Flashcards.db");
-const insertCmd = "INSERT into Flashcards\
-	(user, english, spanish, seen, correct) VALUES (1, @0, @1, 0, 0)"
 
 function dumpDB() {
 		db.all( 'SELECT * FROM Flashcards', function( err, data ) {console.log(data)});
@@ -100,7 +98,11 @@ function storeHandler(req, res, next)
 	if(card.english != undefined && card.spanish != undefined && card.english != "" && card.spanish != "Spanish") {
 		console.log("Recieved:\n", card);
 		let storeClosure = function(err) { storeCallback(err, res); next(); }
-		db.run(insertCmd, card.english, card.spanish, storeClosure);
+		req.user.userData
+		const insertCmd = "INSERT into Flashcards\
+		       (user, english, spanish, seen, correct)\
+		VALUES (  @0,       @1,     @2,    0,       0)";
+		db.run(insertCmd, req.user.userData, card.english, card.spanish, storeClosure);
 	} else {
 		console.log("Error- recieved bad input.\n", card);
 	}
