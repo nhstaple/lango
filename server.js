@@ -91,6 +91,13 @@ function translateHandler(req, res, next)
 	}
 }
 
+function nameHandler(req, res, next)
+{
+	console.log("Getting username handler");
+	res.JSON({firstName: "Server",
+			  lastName: "162"});
+}
+
 function storeHandler(req, res, next)
 {
 	console.log("Store handler");
@@ -192,9 +199,23 @@ passport.deserializeUser((dbRowID, done) => {
     console.log("deserializeUser. Input is:", dbRowID);
     // here is a good place to look up user data in database using
     // dbRowID. Put whatever you want into an object. It ends up
-    // as the property "user" of the "req" object. 
-	let userData = {userData: dbRowID};
-    done(null, userData);
+	// as the property "user" of the "req" object. 
+	
+	const getUser = "SELECT * FROM Users WHERE GoogleID=" + dbRowID;
+	userDb.all(getUser, function(err, data)
+	{
+		if(err) {
+			console.log(err);
+			let userData = {userData: dbRowID};
+			done(null, userData);
+		}
+		else {
+			let userData = {userData: dbRowID};
+			console.log(data);
+			done(null, userData);
+		}
+	});
+
 });
 
 passport.use( new GoogleStrategy(googleLoginData, gotProfile) );
@@ -265,6 +286,10 @@ app.get('/user/translate',
 app.get('/user/store', 
 	isAuthenticated,
 	storeHandler);
+
+app.get('user/name',
+	isAuthenticated,
+	nameHandler);
 
 app.use(fileNotFound);
 
