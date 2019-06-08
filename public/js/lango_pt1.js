@@ -70,8 +70,9 @@ function (_React$Component) {
         id: "header"
       }, React.createElement("div", {
         className: "buttonWrapper"
-      }, React.createElement("button", {
-        id: "reviewButton"
+      }, React.createElement("a", {
+        id: "reviewButton",
+        href: "/user/review.html"
       }, "Start Review")), React.createElement("div", {
         id: "title"
       }, "Lango!"));

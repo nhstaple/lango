@@ -37,7 +37,7 @@ class Header extends React.Component {
         return (
         <div id="header">
             <div className="buttonWrapper">
-                <button id="reviewButton">Start Review</button>
+                <a id="reviewButton" href="/user/review.html">Start Review</a>
             </div>
             <div id="title">Lango!</div>
         </div>
