@@ -193,7 +193,6 @@ passport.deserializeUser((dbRowID, done) => {
     // dbRowID. Put whatever you want into an object. It ends up
     // as the property "user" of the "req" object. 
 	let userData = {userData: dbRowID};
-	console.log(userData);
     done(null, userData);
 });
 
@@ -230,7 +229,6 @@ app.get("/auth/accept",
 				console.log("err", err);
 			} else {
 				console.log(data);
-				console.log(data[0]["COUNT(user)"]);
 				if(data[0]["COUNT(user)"] == 0) {
 					res.redirect("/user/add.html");
 				} else{
@@ -266,7 +264,7 @@ app.get('/user/translate',
 app.get('/user/store', 
 	isAuthenticated,
 	storeHandler);
-	
+
 app.use(fileNotFound);
 
 app.listen(port, function() { console.log('Listening..'); } );
