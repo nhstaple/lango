@@ -159,6 +159,14 @@ function (_React$Component5) {
   }
 
   _createClass(CardWrapper, [{
+    key: "checkReturn",
+    value: function checkReturn(event) {
+      if (event.charCode == 13) {
+        // check the input and flip the card
+        console.log("Check!");
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement("div", {

@@ -68,6 +68,12 @@ class CardBack extends React.Component {
 }
 
 class CardWrapper extends React.Component {
+  checkReturn(event) {
+    if (event.charCode == 13) {
+      // check the input and flip the card
+      console.log("Check!");
+    }
+  }
   render() {
     return(
       <div id="reviewMain">
@@ -81,7 +87,7 @@ class CardWrapper extends React.Component {
         </div>
         <div id="form">
 					<textarea id="cardInput" type="text" name="english" placeholder="English" onKeyPress={checkReturn}>
-                    </textarea>
+          </textarea>
 				</div>
         <Footer />
       </div>
