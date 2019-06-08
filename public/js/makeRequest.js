@@ -12,32 +12,6 @@ function createCORSRequest(method, url)
 	return xhr;
 }
 
-function defaultRequest(xhr)
-{
-	let json = JSON.parse(xhr.responseText);
-	document.getElementById("translation").textContent = json.spanish;
-	console.log(json);
-}
-
-function saveFlashcard(xhr)
-{
-	if(document.getElementById("cardInput").value.length > 0) {
-		document.getElementById("translation").textContent += " Saved!";
-	}
-}
-
-function gotUserName(xhr)
-{
-	let json = JSON.parse(xhr.responseText);
-	document.getElementById("footer").textContent = json.firstName + " " + json.lastName; 
-}
-
-function updateCard(xhr)
-{
-	let json = JSON.parse(xhr.responseText);
-	document.getElementById("trans") = json.spanish;
-}
-
 function makeCorsRequest(data)
 {
 	let url = data;
@@ -56,14 +30,17 @@ function makeCorsRequest(data)
 	if(url.substring(0, store.length) == "store") {
 		xhr.onload = function()
 		{
-			saveFlashcard(xhr);
+			if(document.getElementById("cardInput").value.length > 0) {
+				document.getElementById("translation").textContent += " Saved!";
+			}
 		};
 	}
 	else if(url.substring(0, name.length) == "name")
 	{
 		xhr.onload = function()
 		{
-			gotUserName(xhr);
+			let json = JSON.parse(xhr.responseText);
+			document.getElementById("footer").textContent = json.firstName + " " + json.lastName; 
 		}
 	}
 	// Else there was a request for a card.
@@ -71,14 +48,17 @@ function makeCorsRequest(data)
 	{
 		xhr.onload = function()
 		{
-			updateCard(xhr);
+			let json = JSON.parse(xhr.responseText);
+			document.getElementById("trans") = json.spanish;
 		};
 	}
 	// Else all other requests.
 	else {
 		xhr.onload = function()
 		{
-			defaultRequest(xhr);
+			let json = JSON.parse(xhr.responseText);
+			document.getElementById("translation").textContent = json.spanish;
+			console.log(json);
 		};
 	}
 
