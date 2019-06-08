@@ -144,42 +144,12 @@ function (_React$Component4) {
   }]);
 
   return CardBack;
-}(React.Component); // React component for the card (main component)
-
-
-var Card =
-/*#__PURE__*/
-function (_React$Component5) {
-  _inherits(Card, _React$Component5);
-
-  function Card() {
-    _classCallCheck(this, Card);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Card).apply(this, arguments));
-  }
-
-  _createClass(Card, [{
-    key: "render",
-    value: function render() {
-      return React.createElement("div", {
-        className: "card-container"
-      }, React.createElement("div", {
-        className: "card-body"
-      }, React.createElement(CardBack, {
-        text: "Correct!"
-      }), React.createElement(CardFront, {
-        text: "Volare"
-      })));
-    }
-  }]);
-
-  return Card;
 }(React.Component);
 
 var CardWrapper =
 /*#__PURE__*/
-function (_React$Component6) {
-  _inherits(CardWrapper, _React$Component6);
+function (_React$Component5) {
+  _inherits(CardWrapper, _React$Component5);
 
   function CardWrapper() {
     _classCallCheck(this, CardWrapper);
@@ -192,7 +162,15 @@ function (_React$Component6) {
     value: function render() {
       return React.createElement("div", {
         id: "card-wrapper"
-      }, React.createElement(Card, null));
+      }, React.createElement("div", {
+        className: "card-container"
+      }, React.createElement("div", {
+        className: "card-body"
+      }, React.createElement(CardBack, {
+        text: "Correct!"
+      }), React.createElement(CardFront, {
+        text: "Volare"
+      }))));
     }
   }]);
 

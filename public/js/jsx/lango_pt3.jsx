@@ -65,26 +65,17 @@ class CardBack extends React.Component {
   }
 }
 
-// React component for the card (main component)
-class Card extends React.Component {
-  render() {
-    return(
-      <div className='card-container'>
-        <div className='card-body'>
-          <CardBack text="Correct!" />
-
-          <CardFront text="Volare" />
-        </div>
-      </div>
-    )
-  }
-}
-
 class CardWrapper extends React.Component {
   render() {
     return(
       <div id='card-wrapper'>
-        <Card />
+        <div className='card-container'>
+          <div className='card-body'>
+            <CardBack text="Correct!" />
+
+            <CardFront text="Volare" />
+          </div>
+        </div>
       </div>
     )
   }
