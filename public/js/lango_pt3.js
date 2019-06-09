@@ -150,6 +150,11 @@ function (_React$Component4) {
   return CardBack;
 }(React.Component);
 
+function flipCard() {
+  document.getElementById("card").classList.add("is-flipped");
+  document.getElementById("front").classList.add("is-flipped");
+}
+
 var CardWrapper =
 /*#__PURE__*/
 function (_React$Component5) {
@@ -162,16 +167,10 @@ function (_React$Component5) {
   }
 
   _createClass(CardWrapper, [{
-    key: "flipCard",
-    value: function flipCard() {
-      document.getElementById("card").classList.add("is-flipped");
-      document.getElementById("front").classList.add("is-flipped");
-    }
-  }, {
     key: "checkReturn",
     value: function checkReturn(event) {
       if (event.charCode == 13) {
-        this.flipCard();
+        flipCard();
       }
     }
   }, {
@@ -210,6 +209,5 @@ function (_React$Component5) {
 
 
 ReactDOM.render(React.createElement(CardWrapper, null), cardContainer);
-
 getUsername();
 getFlashCard();

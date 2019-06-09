@@ -67,15 +67,16 @@ class CardBack extends React.Component {
   }
 }
 
+function flipCard()
+{
+  document.getElementById("card").classList.add("is-flipped");
+  document.getElementById("front").classList.add("is-flipped");
+}
+
 class CardWrapper extends React.Component {
-  flipCard()
-  {
-    document.getElementById("card").classList.add("is-flipped");
-    document.getElementById("front").classList.add("is-flipped");
-  }
   checkReturn(event) {
     if (event.charCode == 13) {
-      this.flipCard();
+      flipCard();
     }
   }
   render() {
