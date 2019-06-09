@@ -54,8 +54,8 @@ function translateClosure (res, translate, next) {
 				console.log(APIresHead.error);
 			} else {
 				res.json = {
-          				"english" : translate.q[0],
-          				"spanish" : APIresBody.data.translations[0].translatedText
+          				english: translate.q[0],
+          				spanish: APIresBody.data.translations[0].translatedText
 					};
 				console.log(res.json);
 				res.send(JSON.stringify(res.json));
@@ -89,6 +89,17 @@ function translateHandler(req, res, next)
 		console.log("Want to translate: ", translate);
 		translateClosure(res, translate, next);
 	}
+}
+
+function nameHandler(req, res, next)
+{
+	console.log("Getting username handler");
+	res.json = {
+		firstName: req.user.firstName,
+		lastName:  req.user.lastName
+	};
+	res.send(JSON.stringify(res.json));
+	next();
 }
 
 function storeHandler(req, res, next)
@@ -192,9 +203,29 @@ passport.deserializeUser((dbRowID, done) => {
     console.log("deserializeUser. Input is:", dbRowID);
     // here is a good place to look up user data in database using
     // dbRowID. Put whatever you want into an object. It ends up
-    // as the property "user" of the "req" object. 
-	let userData = {userData: dbRowID};
-    done(null, userData);
+	// as the property "user" of the "req" object. 
+	
+	const getUser = "SELECT * FROM Users WHERE GoogleID=" + dbRowID;
+	userDb.all(getUser, function(err, data)
+	{
+		if(err) {
+			console.log(err);
+			let userData = {userData: dbRowID};
+			done(null, userData);
+		}
+		else if(data[0]) {
+			let userData = {
+				userData: dbRowID,
+				firstName: data[0].FirstName,
+				lastName: data[0].LastName
+			};
+			done(null, userData);
+		} else {
+			let userData = {userData: dbRowID};
+			done(null, userData);
+		}
+	});
+
 });
 
 passport.use( new GoogleStrategy(googleLoginData, gotProfile) );
@@ -265,6 +296,10 @@ app.get('/user/translate',
 app.get('/user/store', 
 	isAuthenticated,
 	storeHandler);
+
+app.get('/user/name',
+	isAuthenticated,
+	nameHandler);
 
 app.use(fileNotFound);
 

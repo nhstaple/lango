@@ -104,3 +104,5 @@ class CardWrapper extends React.Component {
 
 // Render Card component
 ReactDOM.render(<CardWrapper />, cardContainer);
+
+getUsername();
