@@ -98,6 +98,7 @@ function nameHandler(req, res, next)
 		firstName: req.user.firstName,
 		lastName:  req.user.lastName
 	};
+	res.send();
 	next();
 }
 
