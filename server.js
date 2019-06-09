@@ -123,7 +123,7 @@ function translateHandler(req, res, next)
 function nameHandler(req, res, next)
 {
 	console.log("Getting username handler");
-	console.log(req);
+	console.log(req.user);
 	res.json = {
 		firstName: req.user.firstName,
 		lastName:  req.user.lastName
@@ -238,6 +238,7 @@ passport.deserializeUser((dbRowID, done) => {
 	const getUser = "SELECT * FROM Users WHERE GoogleID=" + dbRowID;
 	userDb.all(getUser, function(err, data)
 	{
+		console.log(data);
 		if(err) {
 			console.log(err);
 			let userData = {userData: dbRowID};
