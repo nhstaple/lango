@@ -196,7 +196,7 @@ function (_React$Component5) {
       }, React.createElement(CardBack, {
         text: "Correct!"
       }), React.createElement(CardFront, {
-        text: "Volare"
+        text: ""
       }))), React.createElement("div", {
         id: "form"
       }, React.createElement("textarea", {
