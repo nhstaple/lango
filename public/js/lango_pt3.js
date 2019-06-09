@@ -29,7 +29,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
    It was modified for ECS 162 by Nina Amenta, May 2019.
 */
 function cardReq() {
-  var str = "card";
+  var str = "card?spanish=" + document.getElementById("trans").textContent + "&correct=true";
+  console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
   return;
 }
@@ -151,8 +152,25 @@ function (_React$Component4) {
 }(React.Component);
 
 function flipCard() {
+  var counter = 0;
+
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
+
+  var wait = setInterval(function () {
+    console.log("Flip! " + counter);
+    if (counter >= 1) {
+      console.log("stop flipping!");
+      clearInterval(wait);
+      getFlashCard();
+    }
+    if(counter == 0) 
+    {
+      document.getElementById("card").classList.remove("is-flipped");
+      document.getElementById("front").classList.remove("is-flipped");
+    }
+    counter++;
+  }, 1500);
 }
 
 var CardWrapper =
@@ -191,7 +209,7 @@ function (_React$Component5) {
       }, React.createElement(CardBack, {
         text: "Correct!"
       }), React.createElement(CardFront, {
-        text: "Volare"
+        text: ""
       }))), React.createElement("div", {
         id: "form"
       }, React.createElement("textarea", {

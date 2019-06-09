@@ -10,7 +10,7 @@ class Login extends React.Component {
         return (
             <div id="login">
                 <a id="googleLogin" href="auth/google">
-                    <div class="loginWrapper">
+                    <div className="loginWrapper">
                         <div id="googleIconWrapper">
                             <img id="googleIcon" src="https://image.flaticon.com/teams/slug/google.jpg"></img>
                         </div>

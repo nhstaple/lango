@@ -47,7 +47,7 @@ function (_React$Component) {
         id: "googleLogin",
         href: "auth/google"
       }, React.createElement("div", {
-        class: "loginWrapper"
+        className: "loginWrapper"
       }, React.createElement("div", {
         id: "googleIconWrapper"
       }, React.createElement("img", {

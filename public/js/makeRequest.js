@@ -9,7 +9,7 @@ function getUsername()
 function getFlashCard()
 {
 	console.log("Getting a flashcard from the database");
-	makeCorsRequest("card");
+	cardReq();
 }
 
 function createCORSRequest(method, url)

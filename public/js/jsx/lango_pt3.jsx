@@ -9,11 +9,12 @@
 
 function cardReq()
 {
-  let str = "card";
+  let str = "card?spanish=" + document.getElementById("trans").textContent +
+                "&correct=true";
+  console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
 	return;
 }
-
 const cardContainer = document.getElementById("root");
 
 /** Header. **/
@@ -67,10 +68,26 @@ class CardBack extends React.Component {
   }
 }
 
-function flipCard()
-{
+function flipCard() {
+  var counter = 0;
+
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
+
+  var wait = setInterval(function () {
+    console.log("Flip! " + counter);
+    if (counter >= 1) {
+      console.log("stop flipping!");
+      clearInterval(wait);
+      getFlashCard();
+    }
+    if(counter == 0) 
+    {
+      document.getElementById("card").classList.remove("is-flipped");
+      document.getElementById("front").classList.remove("is-flipped");
+    }
+    counter++;
+  }, 1500);
 }
 
 class CardWrapper extends React.Component {
@@ -90,7 +107,7 @@ class CardWrapper extends React.Component {
           <div className='card-body'>
             <CardBack text="Correct!" />
 
-            <CardFront text="Volare" />
+            <CardFront text="" />
           </div>
         </div>
         <div id="form">
