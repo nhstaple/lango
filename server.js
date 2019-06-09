@@ -295,7 +295,7 @@ app.get('/user/store',
 	isAuthenticated,
 	storeHandler);
 
-app.get('user/name',
+app.get('/user/name',
 	isAuthenticated,
 	nameHandler);
 
