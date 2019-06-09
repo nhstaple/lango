@@ -31,7 +31,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function cardReq()
 {
-  let str = "card?spanish=" + document.getElementById("trans") +
+  let str = "card?spanish=" + document.getElementById("trans").textContent +
                 "&correct=false";
   console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
