@@ -74,22 +74,30 @@ function translateClosure (res, translate, next) {
 
 function getFlashCardHandler(req, res, next)
 {
-	const qry = "SELECT * FROM Flashcards WHERE user=" + req.user.userData;
-	db.all(qry, function(err, data){
-		if(err) {
-			console.log(err);
-		} else{
-			console.log(data);
-			// pick a random flashcard
-			const size = data.length;
-			const index = Math.random(0, size);
-			res.json = {
-				english: data[index].english,
-				spanish: data[index].spanish
+	const dump = "SELECT * FROM Flashcards";
+
+	db.all(dump, function(err, data) {
+		if(err) { console.log(err); }
+		else { console.log(data); }
+
+		const qry = "SELECT * FROM Flashcards WHERE user=" + req.user.userData;
+		db.all(qry, function(err, data){
+			if(err) {
+				console.log(err);
+			} else if (data.length > 0){
+				console.log(data);
+				// pick a random flashcard
+				const size = data.length;
+				const index = Math.random(0, size);
+				res.json = {
+					english: data[index].english,
+					spanish: data[index].spanish
+				}
+				res.send(JSON.stringify(res.json));
+				next();
 			}
-			res.send(JSON.stringify(res.json));
-			next();
-		}
+		});
+
 	});
 }
 
@@ -167,8 +175,7 @@ function isAuthenticated(req, res, next) {
 	console.log("Req.user:",req.user);
 	next();
     } else {
-	res.redirect('/login.html');  // send response telling
-	// Browser to go to login page
+		res.redirect('/login.html');  // send response telling
     }
 }
 
@@ -276,7 +283,7 @@ app.get('/auth/google',
 app.get("/auth/accept",
 	function(req, res, next) {
 		console.log(req.user.userData);
-		var cmd = "SELECT COUNT(user) FROM Flashcards Where user=" + req.user.userData;
+		var cmd = "SELECT COUNT(user) FROM Flashcards WHERE user=" + req.user.userData;
 		console.log(cmd);
 		db.all(cmd, function(err, data) {
 			if(err) {
