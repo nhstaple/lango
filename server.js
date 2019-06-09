@@ -111,7 +111,7 @@ function getRandomCard(req, res, next)
 			// Update the times seen
 			let cmd = 	"UPDATE Flashcards SET " +
 						"seen=" + (card.seen + 1) + " " +
-						"WHERE user='" + req.user.userData + "', " +
+						"WHERE user='" + req.user.userData + "' AND " +
 						"spanish='" + card.spanish + "'";  
 
 			db.all(cmd, function(err, data) {
