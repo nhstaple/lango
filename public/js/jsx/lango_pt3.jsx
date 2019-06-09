@@ -106,3 +106,4 @@ class CardWrapper extends React.Component {
 ReactDOM.render(<CardWrapper />, cardContainer);
 
 getUsername();
+getFlashCard();

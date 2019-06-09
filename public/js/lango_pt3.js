@@ -212,3 +212,4 @@ function (_React$Component5) {
 ReactDOM.render(React.createElement(CardWrapper, null), cardContainer);
 
 getUsername();
+getFlashCard();

@@ -6,6 +6,12 @@ function getUsername()
 	makeCorsRequest("name");
 }
 
+function getFlashCard()
+{
+	console.log("Getting a flashcard from the database");
+	makeCorsRequest("card");
+}
+
 function createCORSRequest(method, url)
 {
 	let xhr = new XMLHttpRequest();
