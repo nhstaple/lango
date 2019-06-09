@@ -2,6 +2,7 @@
 
 function getUsername()
 {
+	console.log("Get username call");
 	makeCorsRequest("name");
 }
 
