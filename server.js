@@ -107,12 +107,25 @@ function getRandomCard(req, res, next)
 			// pick a random flashcard
 			const size = userCards.length;
 			const index = Math.floor(Math.random(0, size - 1));
-			res.json = {
-				english: userCards[index].english,
-				spanish: userCards[index].spanish
-			}
-			res.send(JSON.stringify(res.json));
-			next();
+			let card = userCards[index];
+			// Update the times seen
+			let cmd = 	"UPDATE Flashcards SET" +
+						"seen=" + card.seen + 1 +
+						"WHERE user='" + req.user.userData + "', " +
+						"spanish='" + card.spanish + "'";  
+
+			db.all(cmd, function(err, data) {
+				console.log("update query");
+				if(err) {console.log(err); }
+				else { console.log(data.message); }
+				// Set the return data.
+				res.json = {
+					english: card.english,
+					spanish: card.spanish
+				}
+				res.send(JSON.stringify(res.json));
+				next();
+			});
 		}
 	});
 }
