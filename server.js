@@ -83,15 +83,15 @@ function getFlashCardHandler(req, res, next)
 		else { console.log(data); }
 
 		const qry = "SELECT * FROM Flashcards WHERE user='" + req.user.userData + "'";
-		db.all(qry, function(err, data){
+		db.all(qry, function(err, userCards){
 			console.log("user query");
 			if(err) {
 				console.log(err);
 			} else if (data.length > 0){
-				console.log(data);
+				console.log(datuserCardsa);
 				// pick a random flashcard
-				const size = data.length;
-				const index = Math.random(0, size - 1);
+				const size = userCards.length;
+			    const index = Math.floor(Math.random(0, size - 1));
 				res.json = {
 					english: data[index].english,
 					spanish: data[index].spanish
