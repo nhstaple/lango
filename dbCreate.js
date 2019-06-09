@@ -12,9 +12,9 @@ const userDb = new sqlite3.Database("Users.db");
 // If the table already exists, causes an error.
 // Fix the error by removing or renaming Flashcards.db
 
-const createCmd = "CREATE TABLE Flashcards (user BIGINT, english TEXT, spanish TEXT, seen INT, correct INT)";
+const createCmd = "CREATE TABLE Flashcards (user TEXT, english TEXT, spanish TEXT, seen INT, correct INT)";
 
-const userCmd = "CREATE TABLE Users (FirstName TEXT, LastName TEXT, GoogleID BIGINT NOT NULL, PRIMARY KEY (GoogleID))";
+const userCmd = "CREATE TABLE Users (FirstName TEXT, LastName TEXT, GoogleID TEXT NOT NULL, PRIMARY KEY (GoogleID))";
 
 const insertCmd2 = "INSERT into Users (FirstName, LastName, GoogleID) VALUES ('John', 'Cena', 0123456789)";
 
