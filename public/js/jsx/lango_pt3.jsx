@@ -70,8 +70,16 @@ class CardBack extends React.Component {
 
 function flipCard()
 {
-  document.getElementById("card").classList.add("is-flipped");
-  document.getElementById("front").classList.add("is-flipped");
+  var counter = 0;
+  var wait = setInterval(function() {
+    if(counter >= 2) {
+      clearInterval(wait);
+      getFlashCard();
+    }
+    document.getElementById("card").classList.add("is-flipped");
+    document.getElementById("front").classList.add("is-flipped");
+    counter++;
+  }, 1500);
 }
 
 class CardWrapper extends React.Component {
