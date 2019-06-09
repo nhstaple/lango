@@ -74,7 +74,7 @@ function translateClosure (res, translate, next) {
 
 function getFlashCardHandler(req, res, next)
 {
-	console.log("Get Flashcard handler. got\n");
+	console.log("Get Flashcard handler. got: ", req.query);
 	console.log(req.query);
 	let card = req.query;
 	if(req.query.spanish == "")
@@ -97,12 +97,14 @@ function getFlashCardHandler(req, res, next)
 
 function getRandomCard(req, res, next)
 {
+	console.log("Getting random card");
 	const qry = "SELECT * FROM Flashcards WHERE user='" + req.user.userData + "'";
 	db.all(qry, function(err, userCards){
 		console.log("user query");
 		if(err) {
 			console.log(err);
 		} else if (userCards.length > 0){
+			console.log("success");
 			console.log(userCards);
 			// pick a random flashcard
 			const size = userCards.length;
@@ -117,7 +119,7 @@ function getRandomCard(req, res, next)
 			db.all(cmd, function(err, data) {
 				console.log("update query");
 				if(err) {console.log(err); }
-				else { console.log(data.message); }
+				else { console.log(data); }
 				// Set the return data.
 				res.json = {
 					english: card.english,
@@ -126,6 +128,11 @@ function getRandomCard(req, res, next)
 				res.send(JSON.stringify(res.json));
 				next();
 			});
+		}
+		else 
+		{
+			console.log("user has no cards");
+			console.log(userCards);
 		}
 	});
 }
