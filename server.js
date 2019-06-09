@@ -100,8 +100,15 @@ function getFlashCardHandler(req, res, next)
 			else if (cards.length > 0) { 
 				console.log(cards); 
 				// Update the times seen
+				console.log("this answer: " + req.query.correct);
+				console.log("user score : " + cards[0].correct);
+				var boop = cards[0].correct
+				if(req.query.correct)
+				{
+					boop++;
+				}
 				let cmd = 	"UPDATE Flashcards SET " +
-				"correct=" + (req.query.correct + cards[0].correct) + " " +
+				"correct=" + boop + " " +
 				"WHERE user='" + req.user.userData + "' AND " +
 				"spanish='" + card.spanish + "'";  
 				db.all(cmd, function(err, data){
