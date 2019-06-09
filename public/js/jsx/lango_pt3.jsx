@@ -7,10 +7,12 @@
    It was modified for ECS 162 by Nina Amenta, May 2019.
 */
 
-function cardReq()
+function cardReq(correct)
 {
   let str = "card?spanish=" + document.getElementById("trans").textContent +
-                "&correct=true";
+                "&correct=";
+  if(correct) { str += "true"; }
+  else { str += "false"; }
   console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
 	return;
@@ -68,7 +70,7 @@ class CardBack extends React.Component {
   }
 }
 
-function flipCard() {
+function flipCard(correct) {
   var counter = 0;
 
   document.getElementById("card").classList.add("is-flipped");
@@ -79,7 +81,7 @@ function flipCard() {
     if (counter >= 1) {
       console.log("stop flipping!");
       clearInterval(wait);
-      getFlashCard();
+      getFlashCard(correct);
     }
     if(counter == 0) 
     {
@@ -90,10 +92,20 @@ function flipCard() {
   }, 1500);
 }
 
+function checkAnswer()
+{
+  var solution = document.getElementById("answer").textContent;
+  solution = solution.toLowerCase();
+  var answer = document.getElementById("cardInput").textContent;
+  answer = answer.toLowerCase();
+  return (answer == solution);
+}
+
 class CardWrapper extends React.Component {
   checkReturn(event) {
     if (event.charCode == 13) {
-      flipCard();
+      var result = checkAnswer();
+      flipCard(result);
     }
   }
   render() {
@@ -124,4 +136,4 @@ class CardWrapper extends React.Component {
 ReactDOM.render(<CardWrapper />, cardContainer);
 
 getUsername();
-getFlashCard();
+getFlashCard(false);

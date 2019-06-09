@@ -151,26 +151,34 @@ function (_React$Component4) {
   return CardBack;
 }(React.Component);
 
-function flipCard() {
+function flipCard(correct) {
   var counter = 0;
-
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
-
   var wait = setInterval(function () {
     console.log("Flip! " + counter);
+
     if (counter >= 1) {
       console.log("stop flipping!");
       clearInterval(wait);
-      getFlashCard();
+      getFlashCard(correct);
     }
-    if(counter == 0) 
-    {
+
+    if (counter == 0) {
       document.getElementById("card").classList.remove("is-flipped");
       document.getElementById("front").classList.remove("is-flipped");
     }
+
     counter++;
   }, 1500);
+}
+
+function checkAnswer() {
+  var solution = document.getElementById("answer").textContent;
+  solution = solution.toLowerCase();
+  var answer = document.getElementById("cardInput").textContent;
+  answer = answer.toLowerCase();
+  return answer == solution;
 }
 
 var CardWrapper =
@@ -188,7 +196,8 @@ function (_React$Component5) {
     key: "checkReturn",
     value: function checkReturn(event) {
       if (event.charCode == 13) {
-        flipCard();
+        var result = checkAnswer();
+        flipCard(result);
       }
     }
   }, {
@@ -228,4 +237,4 @@ function (_React$Component5) {
 
 ReactDOM.render(React.createElement(CardWrapper, null), cardContainer);
 getUsername();
-getFlashCard();
+getFlashCard(false);
