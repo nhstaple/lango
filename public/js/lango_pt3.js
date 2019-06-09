@@ -152,10 +152,12 @@ function (_React$Component4) {
 }(React.Component);
 
 function flipCard() {
+  console.log("Flip! " + counter);
   var counter = 0;
   var wait = setInterval(function () {
     if (counter >= 2) {
       clearInterval(wait);
+      console.log("stop flipping!");
       getFlashCard();
     }
 

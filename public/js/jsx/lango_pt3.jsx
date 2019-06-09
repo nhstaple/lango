@@ -70,10 +70,12 @@ class CardBack extends React.Component {
 
 function flipCard()
 {
+  console.log("Flip! " + counter);
   var counter = 0;
   var wait = setInterval(function() {
     if(counter >= 2) {
       clearInterval(wait);
+      console.log("stop flipping!");
       getFlashCard();
     }
     document.getElementById("card").classList.add("is-flipped");
