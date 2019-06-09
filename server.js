@@ -129,7 +129,7 @@ function storeHandler(req, res, next)
 	let card = req.query;
 	if(card.english != undefined && card.spanish != undefined && card.english != "" && card.spanish != "Spanish") {
 		console.log("Recieved:\n", card);
-		console.lof("sanity check: " + req.user.userData);
+		console.log("sanity check: " + req.user.userData);
 		let storeClosure = function(err) { storeCallback(err, res); next(); }
 		const insertCmd = "INSERT into Flashcards\
 		       (user, english, spanish, seen, correct)\
