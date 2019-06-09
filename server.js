@@ -79,6 +79,7 @@ function getFlashCardHandler(req, res, next)
 		if(err) {
 			console.log(err);
 		} else{
+			console.log(data);
 			// pick a random flashcard
 			const size = data.length;
 			const index = Math.random(0, size);
@@ -131,7 +132,7 @@ function storeHandler(req, res, next)
 		let storeClosure = function(err) { storeCallback(err, res); next(); }
 		const insertCmd = "INSERT into Flashcards\
 		       (user, english, spanish, seen, correct)\
-		VALUES (  @0,       @1,     @2,    0,       0)";
+		VALUES (0, @1, @2, 0, 0)";
 		db.run(insertCmd, req.user.userData, card.english, card.spanish, storeClosure);
 	} else {
 		console.log("Error- recieved bad input.\n", card);
