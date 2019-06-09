@@ -68,22 +68,28 @@ class CardBack extends React.Component {
   }
 }
 
-function flipCard()
-{
-  console.log("Flip! " + counter);
+function flipCard() {
   var counter = 0;
-  var wait = setInterval(function(counter) {
-    if(counter >= 2) {
-      clearInterval(wait);
+  var wait = setInterval(function (counter) {
+    console.log("Flip! " + counter);
+    if (counter >= 2) {
       console.log("stop flipping!");
+      clearInterval(wait);
       getFlashCard();
     }
-    document.getElementById("card").classList.add("is-flipped");
-    document.getElementById("front").classList.add("is-flipped");
+    if(counter == 0) 
+    {
+      document.getElementById("card").classList.add("is-flipped");
+      document.getElementById("front").classList.add("is-flipped");
+    }
+    else
+    {
+      document.getElementById("card").classList.remove("is-flipped");
+      document.getElementById("front").classList.remove("is-flipped");
+    } 
     counter++;
   }, 1500);
 }
-
 class CardWrapper extends React.Component {
   checkReturn(event) {
     if (event.charCode == 13) {
