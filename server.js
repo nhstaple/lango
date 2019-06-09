@@ -109,8 +109,8 @@ function getRandomCard(req, res, next)
 			const index = Math.floor(Math.random(0, size - 1));
 			let card = userCards[index];
 			// Update the times seen
-			let cmd = 	"UPDATE Flashcards SET" +
-						"seen=" + card.seen + 1 +
+			let cmd = 	"UPDATE Flashcards SET " +
+						"seen=" + (card.seen + 1) + " " +
 						"WHERE user='" + req.user.userData + "', " +
 						"spanish='" + card.spanish + "'";  
 
