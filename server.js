@@ -91,7 +91,30 @@ function getFlashCardHandler(req, res, next)
 	else
 	{
 		console.log("geting a successive card");
-		next();
+		// Update the card.
+		const updateCardQry = "SELECT * FROM Flashcards WHERE user='" + req.user.userData + "' " +
+		"AND spanish='" + req.query.spanish + "'";
+		db.all(updateCardQry, function(err, cards) {
+			console.log("updating card correct")
+			if(err) {console.log(err); }
+			else if (cards.length > 0) { 
+				console.log(cards); 
+				// Update the times seen
+				let cmd = 	"UPDATE Flashcards SET " +
+				"correct=" + (req.query.correct + cards[0].correct) + " " +
+				"WHERE user='" + req.user.userData + "' AND " +
+				"spanish='" + card.spanish + "'";  
+				db.all(cmd, function(err, data){
+					if(err) {console.log(err); }
+					// Get a new card.
+					getRandomCard(req, res, next);
+				});
+			}
+			else {
+				console.log("Err- User has no cards");
+				next();
+			}
+		});
 	}
 }
 

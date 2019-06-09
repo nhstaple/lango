@@ -10,7 +10,7 @@
 function cardReq()
 {
   let str = "card?spanish=" + document.getElementById("trans").textContent +
-                "&correct=false";
+                "&correct=true";
   console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
 	return;
