@@ -74,13 +74,14 @@ function translateClosure (res, translate, next) {
 
 function getFlashCardHandler(req, res, next)
 {
+	console.log("Get Flashcard handler");
 	const dump = "SELECT * FROM Flashcards";
 
 	db.all(dump, function(err, data) {
 		if(err) { console.log(err); }
 		else { console.log(data); }
 
-		const qry = "SELECT * FROM Flashcards WHERE user=" + req.user.userData;
+		const qry = "SELECT * FROM Flashcards WHERE user='" + req.user.userData + "'";
 		db.all(qry, function(err, data){
 			if(err) {
 				console.log(err);
