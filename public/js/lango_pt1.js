@@ -216,3 +216,6 @@ function (_React$Component5) {
 }(React.Component);
 
 ReactDOM.render(React.createElement(CreatePage, null), document.getElementById('root'));
+
+getUsername();
+
