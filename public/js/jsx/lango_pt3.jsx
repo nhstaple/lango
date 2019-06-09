@@ -11,7 +11,7 @@ function cardReq()
 {
   let str = "card?spanish=" + document.getElementById("trans") +
                 "&correct=false";
-
+  console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
 	return;
 }
@@ -92,7 +92,7 @@ class CardWrapper extends React.Component {
           <div className='card-body'>
             <CardBack text="Correct!" />
 
-            <CardFront text="Volare" />
+            <CardFront text="" />
           </div>
         </div>
         <div id="form">

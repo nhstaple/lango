@@ -33,7 +33,7 @@ function cardReq()
 {
   let str = "card?spanish=" + document.getElementById("trans") +
                 "&correct=false";
-
+  console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
 	return;
 }

@@ -74,7 +74,8 @@ function translateClosure (res, translate, next) {
 
 function getFlashCardHandler(req, res, next)
 {
-	console.log("Get Flashcard handler");
+	console.log("Get Flashcard handler. got\n");
+	console.log(req.query);
 	let card = req.query;
 	if(res.query.spanish == "")
 	{
