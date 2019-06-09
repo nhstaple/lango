@@ -108,8 +108,8 @@ function getRandomCard(req, res, next)
 			const size = userCards.length;
 			const index = Math.floor(Math.random(0, size - 1));
 			res.json = {
-				english: data[index].english,
-				spanish: data[index].spanish
+				english: userCards[index].english,
+				spanish: userCards[index].spanish
 			}
 			res.send(JSON.stringify(res.json));
 			next();
