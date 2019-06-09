@@ -72,6 +72,26 @@ function translateClosure (res, translate, next) {
 	}, APIcallback);
 }
 
+function getFlashCardHandler(req, res, next)
+{
+	const qry = "SELECT * FROM Flashcards WHERE user=" + req.user.userData;
+	db.all(qry, function(err, data){
+		if(err) {
+			console.log(err);
+		} else{
+			// pick a random flashcard
+			const size = data.length;
+			const index = Math.random(0, size);
+			res.json = {
+				english: data[index].english,
+				spanish: data[index].spanish
+			}
+			res.send(JSON.stringify(res.json));
+			next();
+		}
+	});
+}
+
 function translateHandler(req, res, next)
 {
 	console.log("Translate handler.");
@@ -300,6 +320,10 @@ app.get('/user/store',
 app.get('/user/name',
 	isAuthenticated,
 	nameHandler);
+
+app.get('/user/card',
+	isAuthenticated,
+	getFlashCardHandler);
 
 app.use(fileNotFound);
 
