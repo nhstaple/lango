@@ -171,7 +171,7 @@ function (_React$Component5) {
     key: "checkReturn",
     value: function checkReturn(event) {
       if (event.charCode == 13) {
-        flipCard();
+        this.flipCard();
       }
     }
   }, {

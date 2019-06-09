@@ -75,7 +75,7 @@ class CardWrapper extends React.Component {
   }
   checkReturn(event) {
     if (event.charCode == 13) {
-      flipCard();
+      this.flipCard();
     }
   }
   render() {

@@ -88,7 +88,7 @@ function getFlashCardHandler(req, res, next)
 			if(err) {
 				console.log(err);
 			} else if (data.length > 0){
-				console.log(datuserCardsa);
+				console.log(userCards);
 				// pick a random flashcard
 				const size = userCards.length;
 			    const index = Math.floor(Math.random(0, size - 1));
