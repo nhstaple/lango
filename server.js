@@ -285,7 +285,7 @@ app.get('/auth/google',
 app.get("/auth/accept",
 	function(req, res, next) {
 		console.log(req.user.userData);
-		var cmd = "SELECT COUNT(user) FROM Flashcards WHERE user=" + req.user.userData;
+		var cmd = "SELECT COUNT(user) FROM Flashcards WHERE user='" + req.user.userData +"'";
 		console.log(cmd);
 		db.all(cmd, function(err, data) {
 			if(err) {
