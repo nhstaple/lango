@@ -72,6 +72,38 @@ function translateClosure (res, translate, next) {
 	}, APIcallback);
 }
 
+function getFlashCardHandler(req, res, next)
+{
+	console.log("Get Flashcard handler");
+	const dump = "SELECT * FROM Flashcards";
+
+	db.all(dump, function(err, data) {
+		console.log("dump");
+		if(err) { console.log(err); }
+		else { console.log(data); }
+
+		const qry = "SELECT * FROM Flashcards WHERE user='" + req.user.userData + "'";
+		db.all(qry, function(err, userCards){
+			console.log("user query");
+			if(err) {
+				console.log(err);
+			} else if (data.length > 0){
+				console.log(userCards);
+				// pick a random flashcard
+				const size = userCards.length;
+			    const index = Math.floor(Math.random(0, size - 1));
+				res.json = {
+					english: data[index].english,
+					spanish: data[index].spanish
+				}
+				res.send(JSON.stringify(res.json));
+				next();
+			}
+		});
+
+	});
+}
+
 function translateHandler(req, res, next)
 {
 	console.log("Translate handler.");
@@ -94,6 +126,7 @@ function translateHandler(req, res, next)
 function nameHandler(req, res, next)
 {
 	console.log("Getting username handler");
+	console.log(req.user);
 	res.json = {
 		firstName: req.user.firstName,
 		lastName:  req.user.lastName
@@ -108,11 +141,12 @@ function storeHandler(req, res, next)
 	let card = req.query;
 	if(card.english != undefined && card.spanish != undefined && card.english != "" && card.spanish != "Spanish") {
 		console.log("Recieved:\n", card);
+		console.log("sanity check: " + req.user.userData);
 		let storeClosure = function(err) { storeCallback(err, res); next(); }
 		const insertCmd = "INSERT into Flashcards\
 		       (user, english, spanish, seen, correct)\
-		VALUES (  @0,       @1,     @2,    0,       0)";
-		db.run(insertCmd, req.user.userData, card.english, card.spanish, storeClosure);
+		VALUES (@0, @1, @2, 0, 0)";
+		db.run(insertCmd, [req.user.userData, card.english, card.spanish], storeClosure);
 	} else {
 		console.log("Error- recieved bad input.\n", card);
 	}
@@ -145,8 +179,7 @@ function isAuthenticated(req, res, next) {
 	console.log("Req.user:",req.user);
 	next();
     } else {
-	res.redirect('/login.html');  // send response telling
-	// Browser to go to login page
+		res.redirect('/login.html');  // send response telling
     }
 }
 
@@ -205,15 +238,16 @@ passport.deserializeUser((dbRowID, done) => {
     // dbRowID. Put whatever you want into an object. It ends up
 	// as the property "user" of the "req" object. 
 	
-	const getUser = "SELECT * FROM Users WHERE GoogleID=" + dbRowID;
+	const getUser = "SELECT * FROM Users WHERE GoogleID='" + dbRowID + "'";
 	userDb.all(getUser, function(err, data)
 	{
+		console.log(data);
 		if(err) {
 			console.log(err);
 			let userData = {userData: dbRowID};
 			done(null, userData);
 		}
-		else if(data[0]) {
+		else if(data.length > 0) {
 			let userData = {
 				userData: dbRowID,
 				firstName: data[0].FirstName,
@@ -254,7 +288,7 @@ app.get('/auth/google',
 app.get("/auth/accept",
 	function(req, res, next) {
 		console.log(req.user.userData);
-		var cmd = "SELECT COUNT(user) FROM Flashcards Where user=" + req.user.userData;
+		var cmd = "SELECT COUNT(user) FROM Flashcards WHERE user='" + req.user.userData +"'";
 		console.log(cmd);
 		db.all(cmd, function(err, data) {
 			if(err) {
@@ -300,6 +334,10 @@ app.get('/user/store',
 app.get('/user/name',
 	isAuthenticated,
 	nameHandler);
+
+app.get('/user/card',
+	isAuthenticated,
+	getFlashCardHandler);
 
 app.use(fileNotFound);
 

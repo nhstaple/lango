@@ -6,6 +6,12 @@ function getUsername()
 	makeCorsRequest("name");
 }
 
+function getFlashCard()
+{
+	console.log("Getting a flashcard from the database");
+	makeCorsRequest("card");
+}
+
 function createCORSRequest(method, url)
 {
 	let xhr = new XMLHttpRequest();
@@ -50,7 +56,8 @@ function makeCorsRequest(data)
 		xhr.onload = function()
 		{
 			let json = JSON.parse(xhr.responseText);
-			document.getElementById("trans") = json.spanish;
+			document.getElementById("trans").textContent = json.spanish;
+			document.getElementById("answer").textContent = json.english;
 		};
 	}
 	// Else all other requests.
