@@ -123,6 +123,7 @@ function translateHandler(req, res, next)
 function nameHandler(req, res, next)
 {
 	console.log("Getting username handler");
+	console.log(req);
 	res.json = {
 		firstName: req.user.firstName,
 		lastName:  req.user.lastName
