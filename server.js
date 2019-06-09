@@ -235,7 +235,7 @@ passport.deserializeUser((dbRowID, done) => {
     // dbRowID. Put whatever you want into an object. It ends up
 	// as the property "user" of the "req" object. 
 	
-	const getUser = "SELECT * FROM Users WHERE GoogleID=" + dbRowID;
+	const getUser = "SELECT * FROM Users WHERE GoogleID='" + dbRowID + "'";
 	userDb.all(getUser, function(err, data)
 	{
 		console.log(data);
@@ -244,7 +244,7 @@ passport.deserializeUser((dbRowID, done) => {
 			let userData = {userData: dbRowID};
 			done(null, userData);
 		}
-		else if(data[0]) {
+		else if(data.length > 0) {
 			let userData = {
 				userData: dbRowID,
 				firstName: data[0].FirstName,
