@@ -75,32 +75,44 @@ function translateClosure (res, translate, next) {
 function getFlashCardHandler(req, res, next)
 {
 	console.log("Get Flashcard handler");
-	const dump = "SELECT * FROM Flashcards";
-
-	db.all(dump, function(err, data) {
-		console.log("dump");
-		if(err) { console.log(err); }
-		else { console.log(data); }
-
-		const qry = "SELECT * FROM Flashcards WHERE user='" + req.user.userData + "'";
-		db.all(qry, function(err, userCards){
-			console.log("user query");
-			if(err) {
-				console.log(err);
-			} else if (data.length > 0){
-				console.log(userCards);
-				// pick a random flashcard
-				const size = userCards.length;
-			    const index = Math.floor(Math.random(0, size - 1));
-				res.json = {
-					english: data[index].english,
-					spanish: data[index].spanish
-				}
-				res.send(JSON.stringify(res.json));
-				next();
-			}
+	let card = req.query;
+	if(res.query.spanish == "")
+	{
+		console.log("init");
+		const dump = "SELECT * FROM Flashcards";
+		db.all(dump, function(err, data) {
+			console.log("dump");
+			if(err) { console.log(err); }
+			else { console.log(data); }
+			getRandomCard(req, res, next);
 		});
+	}
+	else
+	{
+		console.log("geting a successive card");
+		next();
+	}
+}
 
+function getRandomCard(req, res, next)
+{
+	const qry = "SELECT * FROM Flashcards WHERE user='" + req.user.userData + "'";
+	db.all(qry, function(err, userCards){
+		console.log("user query");
+		if(err) {
+			console.log(err);
+		} else if (userCards.length > 0){
+			console.log(userCards);
+			// pick a random flashcard
+			const size = userCards.length;
+			const index = Math.floor(Math.random(0, size - 1));
+			res.json = {
+				english: data[index].english,
+				spanish: data[index].spanish
+			}
+			res.send(JSON.stringify(res.json));
+			next();
+		}
 	});
 }
 

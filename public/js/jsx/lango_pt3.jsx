@@ -9,7 +9,9 @@
 
 function cardReq()
 {
-  let str = "card";
+  let str = "card?spanish=" + document.getElementById("trans") +
+                "&correct=false";
+
   makeCorsRequest(str);
 	return;
 }

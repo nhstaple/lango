@@ -28,11 +28,16 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
    It was modified for ECS 162 by Nina Amenta, May 2019.
 */
-function cardReq() {
-  var str = "card";
+
+function cardReq()
+{
+  let str = "card?spanish=" + document.getElementById("trans") +
+                "&correct=false";
+
   makeCorsRequest(str);
-  return;
+	return;
 }
+
 
 var cardContainer = document.getElementById("root");
 /** Header. **/
