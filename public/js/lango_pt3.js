@@ -154,7 +154,7 @@ function (_React$Component4) {
 function flipCard() {
   console.log("Flip! " + counter);
   var counter = 0;
-  var wait = setInterval(function () {
+  var wait = setInterval(function (counter) {
     if (counter >= 2) {
       clearInterval(wait);
       console.log("stop flipping!");
