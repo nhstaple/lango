@@ -54,8 +54,8 @@ function translateClosure (res, translate, next) {
 				console.log(APIresHead.error);
 			} else {
 				res.json = {
-          				"english" : translate.q[0],
-          				"spanish" : APIresBody.data.translations[0].translatedText
+          				english: translate.q[0],
+          				spanish: APIresBody.data.translations[0].translatedText
 					};
 				console.log(res.json);
 				res.send(JSON.stringify(res.json));
@@ -94,10 +94,10 @@ function translateHandler(req, res, next)
 function nameHandler(req, res, next)
 {
 	console.log("Getting username handler");
-	res.send(JSON({
+	res.json = {
 		firstName: req.user.firstName,
 		lastName:  req.user.lastName
-	}));
+	};
 	next();
 }
 
