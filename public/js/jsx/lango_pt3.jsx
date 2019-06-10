@@ -12,10 +12,12 @@ function cardReq()
   let str = "card?spanish="; // + document.getElementById("trans").textContent +
   if(document.getElementById("cardInput").value == "") {
     str += "NEXT";
-  } else 
+  }
+  else 
   {
     str += document.getElementById("trans").textContent; 
   }
+  document.getElementById("trans").textContent = "Loading...";
   str += "&correct=";
   if(checkAnswer()) { str += "true"; }
   else { str += "false"; }
@@ -87,13 +89,10 @@ function flipCard() {
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
 
-  document.getElementById("trans").textContent = "";
-
   var wait = setInterval(function () {
     console.log("Flip! " + counter);
     if (counter >= 1) {
       console.log("stop flipping!");
-      document.getElementById("trans").textContent = "Loading...";
       clearInterval(wait);
       getFlashCard();
       document.getElementById("congrats").textContent = "";

@@ -33,7 +33,11 @@ function cardReq() {
 
   if (document.getElementById("cardInput").value == "") {
     str += "NEXT";
-  } else {
+  } 
+  else if (document.getElementById("trans").textContent == "Loading") {
+
+  }
+  else {
     str += document.getElementById("trans").textContent;
   }
 
@@ -183,7 +187,7 @@ function flipCard() {
     console.log("Flip! " + counter);
     if (counter >= 1) {
       console.log("stop flipping!");
-      document.getElementById("trans").textContent = "Loading...";
+      document.getElementById("trans").textContent = "Loading";
       clearInterval(wait);
       getFlashCard();
       document.getElementById("congrats").textContent = "";
