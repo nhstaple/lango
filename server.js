@@ -147,7 +147,8 @@ function getRandomCard(req, res, next)
 			let card = userCards[index];
 			let score = ( Math.max(1,5-card.correct) + Math.max(1,5-card.seen) + 5*( (card.seen-card.correct)/card.seen) );
 			console.log("card's score: " + score);
-			if(Math.random() * 15 <= score) {
+			// Display a viring card or a random compute.
+			if(score.seen == 0 || Math.random() * 15 <= score) {
 				// Update the times seen
 				let cmd = 	"UPDATE Flashcards SET " +
 						"seen=" + (card.seen + 1) + " " +
