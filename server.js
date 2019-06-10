@@ -107,6 +107,7 @@ function getFlashCardHandler(req, res, next)
 				{
 					boop++;
 				}
+				console.log("updating correct to: " + boop);
 				let cmd = 	"UPDATE Flashcards SET " +
 				"correct=" + boop + " " +
 				"WHERE user='" + req.user.userData + "' AND " +
