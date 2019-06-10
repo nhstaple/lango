@@ -253,9 +253,9 @@ function fileNotFound(req, res)
 
 function isAuthenticated(req, res, next) {
     if (req.user) {
-	console.log("Req.session:",req.session);
-	console.log("Req.user:",req.user);
-	next();
+		console.log("Req.session:",req.session);
+		console.log("Req.user:",req.user);
+		next();
     } else {
 		res.redirect('/login.html');  // send response telling
     }
@@ -399,22 +399,18 @@ app.get('/auth/redirect',
 app.get('/user/*',
 	isAuthenticated, // only pass on to following function if
 	express.static('.') 
-       ); 
-
+    ); 
 
 app.get('/user/translate',
-	isAuthenticated,
 	translateHandler);
+
 app.get('/user/store', 
-	isAuthenticated,
 	storeHandler);
 
 app.get('/user/name',
-	isAuthenticated,
 	nameHandler);
 
 app.get('/user/card',
-	isAuthenticated,
 	getFlashCardHandler);
 
 app.use(fileNotFound);
