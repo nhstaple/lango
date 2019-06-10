@@ -17,7 +17,6 @@ function cardReq()
   {
     str += document.getElementById("trans").textContent; 
   }
-  document.getElementById("trans").textContent = "Loading...";
   str += "&correct=";
   if(checkAnswer()) { str += "true"; }
   else { str += "false"; }
@@ -94,6 +93,7 @@ function flipCard() {
     if (counter >= 1) {
       console.log("stop flipping!");
       clearInterval(wait);
+      document.getElementById("congrats").textContent = "Loading";
       getFlashCard();
       document.getElementById("congrats").textContent = "";
     }

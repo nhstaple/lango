@@ -33,11 +33,7 @@ function cardReq() {
 
   if (document.getElementById("cardInput").value == "") {
     str += "NEXT";
-  } 
-  else if (document.getElementById("trans").textContent == "Loading") {
-
-  }
-  else {
+  } else {
     str += document.getElementById("trans").textContent;
   }
 
@@ -172,7 +168,8 @@ function (_React$Component4) {
 
 function flipCard() {
   var counter = 0;
-  if(checkAnswer()) {
+
+  if (checkAnswer()) {
     document.getElementById("congrats").textContent = "Correct!";
   } else {
     document.getElementById("congrats").textContent = "False!";
@@ -180,23 +177,22 @@ function flipCard() {
 
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
-
-  document.getElementById("trans").textContent = "";
-
   var wait = setInterval(function () {
     console.log("Flip! " + counter);
+
     if (counter >= 1) {
       console.log("stop flipping!");
-      document.getElementById("trans").textContent = "Loading";
       clearInterval(wait);
+      document.getElementById("congrats").textContent = "Loading";
       getFlashCard();
       document.getElementById("congrats").textContent = "";
     }
-    if(counter == 0) 
-    {
+
+    if (counter == 0) {
       document.getElementById("card").classList.remove("is-flipped");
       document.getElementById("front").classList.remove("is-flipped");
     }
+
     counter++;
   }, 1500);
 }
