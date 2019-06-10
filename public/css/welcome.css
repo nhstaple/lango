@@ -66,7 +66,14 @@
     flex-direction: row;
 }
 
+#googleLogin
+{
+    text-decoration: none;
+}
+
 #loginTextWrapper {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
 }

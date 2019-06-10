@@ -1,0 +1,66 @@
+/* Tablet */
+@media only screen and (max-width: 800px) {
+    #welcomePage {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    #welcomeText {
+        padding-top: 0;
+    }
+    #welcome, #login {
+        width: auto;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        height: 66vh;
+    }
+    #login {
+        width: auto;
+        height: 33vh;
+    }
+    #form {
+        margin-top: 0;
+        height: 25vh;
+    }
+    .card-container {
+        margin: 0;
+    }
+    .card-body {
+        height: 75%;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    #welcome {
+        height: 80vh;
+    }
+    #login {
+        height: 20vh;
+    }
+    #title {
+        font-size: 3.5em;
+    }
+    #reviewButton, #submitButton, #saveButton, #addRedirect, #flipButton, #nextCardButton, #footer
+    {
+        font-size: 0.9em;
+    }
+    #translateMain {
+        padding-right: 7.5vw;
+        padding-left: 7.5vw;
+    }
+    #translationWrapper {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5vh;
+    }
+    #form, #resultBox {
+        height: 25vh;
+        margin-bottom: 5vh;
+        font-size: 0.9em;
+        width: 100%;
+        padding: 0;
+    }
+}
