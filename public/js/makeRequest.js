@@ -6,10 +6,10 @@ function getUsername()
 	makeCorsRequest("name");
 }
 
-function getFlashCard(correct)
+function getFlashCard()
 {
 	console.log("Getting a flashcard from the database");
-	cardReq(correct);
+	cardReq();
 }
 
 function createCORSRequest(method, url)
