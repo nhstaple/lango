@@ -78,7 +78,6 @@ class CardBack extends React.Component {
 
 function flipCard() {
   var counter = 0;
-
   if(checkAnswer()) {
     document.getElementById("congrats").textContent = "Correct!";
   } else {
@@ -88,10 +87,13 @@ function flipCard() {
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
 
+  document.getElementById("front").textContent = "";
+
   var wait = setInterval(function () {
     console.log("Flip! " + counter);
     if (counter >= 1) {
       console.log("stop flipping!");
+      document.getElementById("front").textContent = "Loading...";
       clearInterval(wait);
       getFlashCard();
       document.getElementById("congrats").textContent = "";
