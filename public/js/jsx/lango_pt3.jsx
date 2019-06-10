@@ -105,6 +105,8 @@ function checkAnswer()
   solution = solution.toLowerCase();
   var answer = document.getElementById("cardInput").textContent;
   answer = answer.toLowerCase();
+  answer = answer.replace(/(\r\n|\n|\r)/gm, "");
+  console.log(answer + " ?= " + solution + " => " + (answer == solution));
   return (answer == solution);
 }
 

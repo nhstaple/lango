@@ -188,12 +188,15 @@ function flipCard() {
   }, 1500);
 }
 
-function checkAnswer() {
+function checkAnswer()
+{
   var solution = document.getElementById("answer").textContent;
   solution = solution.toLowerCase();
   var answer = document.getElementById("cardInput").textContent;
   answer = answer.toLowerCase();
-  return answer == solution;
+  answer = answer.replace(/(\r\n|\n|\r)/gm, "");
+  console.log(answer + " ?= " + solution + " => " + (answer == solution));
+  return (answer == solution);
 }
 
 var CardWrapper =
