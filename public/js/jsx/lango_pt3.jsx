@@ -7,6 +7,18 @@
    It was modified for ECS 162 by Nina Amenta, May 2019.
 */
 
+function getNext()
+{
+  let str = "card?spanish="; // + document.getElementById("trans").textContent +
+  str += "NEXT";
+  str += "&correct=";
+  if(checkAnswer()) { str += "true"; }
+  else { str += "false"; }
+  console.log("sanity check cardReq AJAX\n" + str);
+  makeCorsRequest(str);
+	return;
+}
+
 function cardReq()
 {
   let str = "card?spanish="; // + document.getElementById("trans").textContent +
@@ -145,7 +157,7 @@ class CardWrapper extends React.Component {
 				</div>
         <div id="anotherWrapper">
           <div className="buttonWrapper">
-            <button id="nextCardButton" onClick={getFlashCard}>Next</button>
+            <button id="nextCardButton" onClick={getNext}>Next</button>
           </div>
         </div>
         <Footer />
