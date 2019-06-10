@@ -114,6 +114,7 @@ function checkAnswer()
 class CardWrapper extends React.Component {
   checkReturn(event) {
     if (event.charCode == 13) {
+      document.getElementById("cardInput").value = document.getElementById("cardInput").value.replace(/(\r\n|\n|\r)/gm, "");
       flipCard();
     }
   }
@@ -123,7 +124,7 @@ class CardWrapper extends React.Component {
         <Header />
         <div id="card" className='card-container'>
           <div className="buttonWrapper">
-            <button id="flipButton" onClick={this.flipCard}>Check Answer</button>
+            <button id="flipButton" onClick={flipCard}>Check Answer</button>
           </div>
           <div className='card-body'>
             <CardBack text="Correct!" />
@@ -135,6 +136,9 @@ class CardWrapper extends React.Component {
 					<textarea id="cardInput" type="text" name="english" placeholder="English" onKeyPress={this.checkReturn}>
           </textarea>
 				</div>
+        <div className="buttonWrapper">
+            <button id="nextCardButton" onClick={getFlashCard}>Next</button>
+          </div>
         <Footer />
       </div>
     )

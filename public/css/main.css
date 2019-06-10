@@ -10,7 +10,7 @@
 	font-family: 'Raleway', sans-serif;
 }
 
-#reviewButton, #submitButton, #saveButton, #addRedirect, #flipButton, #footer {
+#reviewButton, #submitButton, #saveButton, #addRedirect, #flipButton, #nextCardButton, #footer {
 	font-size: 1.08em; /* 25/12 = 2.08 */
 	color: white;
 	font-family: helvetica;
@@ -25,12 +25,12 @@
 	background-color: #606B9B;
 }
 
-#addRedirect {
+#addRedirect, {
 	background-color: #606B9B;
 	text-decoration: none;
 }
 
-#flipButton {
+#flipButton, #nextCardButton {
 	background-color: #70C7A9;
 }
 

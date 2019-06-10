@@ -188,15 +188,14 @@ function flipCard() {
   }, 1500);
 }
 
-function checkAnswer()
-{
+function checkAnswer() {
   var solution = document.getElementById("answer").textContent;
   solution = solution.toLowerCase();
   var answer = document.getElementById("cardInput").value;
   answer = answer.toLowerCase();
   answer = answer.replace(/(\r\n|\n|\r)/gm, "");
   console.log(answer + " ?= " + solution + " => " + (answer == solution));
-  return (answer == solution);
+  return answer == solution;
 }
 
 var CardWrapper =
@@ -214,6 +213,7 @@ function (_React$Component5) {
     key: "checkReturn",
     value: function checkReturn(event) {
       if (event.charCode == 13) {
+        document.getElementById("cardInput").value = document.getElementById("cardInput").value.replace(/(\r\n|\n|\r)/gm, "");
         flipCard();
       }
     }
@@ -229,7 +229,7 @@ function (_React$Component5) {
         className: "buttonWrapper"
       }, React.createElement("button", {
         id: "flipButton",
-        onClick: this.flipCard
+        onClick: flipCard
       }, "Check Answer")), React.createElement("div", {
         className: "card-body"
       }, React.createElement(CardBack, {
@@ -244,7 +244,12 @@ function (_React$Component5) {
         name: "english",
         placeholder: "English",
         onKeyPress: this.checkReturn
-      })), React.createElement(Footer, null));
+      })), React.createElement("div", {
+        className: "buttonWrapper"
+      }, React.createElement("button", {
+        id: "nextCardButton",
+        onClick: getFlashCard
+      }, "Next")), React.createElement(Footer, null));
     }
   }]);
 
