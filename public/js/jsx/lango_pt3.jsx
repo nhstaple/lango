@@ -74,9 +74,9 @@ function flipCard() {
   var counter = 0;
 
   if(checkAnswer()) {
-    document.getElementById("back").textContent = "Correct!";
+    document.getElementById("congrats").textContent = "Correct!";
   } else {
-    document.getElementById("back").textContent = "False!";
+    document.getElementById("congrats").textContent = "False!";
   }
 
   document.getElementById("card").classList.add("is-flipped");
@@ -88,7 +88,7 @@ function flipCard() {
       console.log("stop flipping!");
       clearInterval(wait);
       getFlashCard();
-      document.getElementById("back").textContent = "";
+      document.getElementById("congrats").textContent = "";
     }
     if(counter == 0) 
     {

@@ -158,8 +158,15 @@ function (_React$Component4) {
   return CardBack;
 }(React.Component);
 
-function flipCard(correct) {
+function flipCard() {
   var counter = 0;
+
+  if (checkAnswer()) {
+    document.getElementById("congrats").textContent = "Correct!";
+  } else {
+    document.getElementById("congrats").textContent = "False!";
+  }
+
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
   var wait = setInterval(function () {
@@ -168,7 +175,8 @@ function flipCard(correct) {
     if (counter >= 1) {
       console.log("stop flipping!");
       clearInterval(wait);
-      getFlashCard(correct);
+      getFlashCard();
+      document.getElementById("congrats").textContent = "";
     }
 
     if (counter == 0) {
@@ -203,8 +211,7 @@ function (_React$Component5) {
     key: "checkReturn",
     value: function checkReturn(event) {
       if (event.charCode == 13) {
-        var result = checkAnswer();
-        flipCard(result);
+        flipCard();
       }
     }
   }, {

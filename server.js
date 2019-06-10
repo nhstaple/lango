@@ -103,7 +103,7 @@ function getFlashCardHandler(req, res, next)
 				console.log("this answer: " + req.query.correct);
 				console.log("user score : " + cards[0].correct);
 				var boop = cards[0].correct
-				if(req.query.correct)
+				if(req.query.correct == true)
 				{
 					boop++;
 				}
