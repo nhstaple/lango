@@ -140,7 +140,7 @@
 	flex: 0 0 auto;
 }
 
-#saveButton, #submitButton, #reviewButton, #addRedirect, #flipButton {
+#saveButton, #submitButton, #reviewButton, #addRedirect, #flipButton, #nextCardButton {
 	display: flex;
 	flex: 0 0 auto;
 	border-radius: 12px;

@@ -77,7 +77,7 @@ function getFlashCardHandler(req, res, next)
 	console.log("Get Flashcard handler. got: ", req.query);
 	console.log(req.query);
 	let card = req.query;
-	if(req.query.spanish == "")
+	if(req.query.spanish == "" || req.query.spanish == "NEXT")
 	{
 		console.log("init");
 		const dump = "SELECT * FROM Flashcards";

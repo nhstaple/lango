@@ -9,8 +9,14 @@
 
 function cardReq()
 {
-  let str = "card?spanish=" + document.getElementById("trans").textContent +
-                "&correct=";
+  let str = "card?spanish="; // + document.getElementById("trans").textContent +
+  if(document.getElementById("cardInput").value == "") {
+    str += "NEXT";
+  } else 
+  {
+    str += document.getElementById("trans").textContent; 
+  }
+  str += "&correct=";
   if(checkAnswer()) { str += "true"; }
   else { str += "false"; }
   console.log("sanity check cardReq AJAX\n" + str);
@@ -149,4 +155,4 @@ class CardWrapper extends React.Component {
 ReactDOM.render(<CardWrapper />, cardContainer);
 
 getUsername();
-getFlashCard(false);
+getFlashCard();

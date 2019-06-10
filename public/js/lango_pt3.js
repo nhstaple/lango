@@ -29,7 +29,15 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
    It was modified for ECS 162 by Nina Amenta, May 2019.
 */
 function cardReq() {
-  var str = "card?spanish=" + document.getElementById("trans").textContent + "&correct=";
+  var str = "card?spanish="; // + document.getElementById("trans").textContent +
+
+  if (document.getElementById("cardInput").value == "") {
+    str += "NEXT";
+  } else {
+    str += document.getElementById("trans").textContent;
+  }
+
+  str += "&correct=";
 
   if (checkAnswer()) {
     str += "true";
@@ -259,4 +267,4 @@ function (_React$Component5) {
 
 ReactDOM.render(React.createElement(CardWrapper, null), cardContainer);
 getUsername();
-getFlashCard(false);
+getFlashCard();
