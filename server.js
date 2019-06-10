@@ -145,24 +145,33 @@ function getRandomCard(req, res, next)
 			const index = Math.floor(Math.random() * size);
 			console.log(size + " : [" + index +"]");
 			let card = userCards[index];
-			// Update the times seen
-			let cmd = 	"UPDATE Flashcards SET " +
+			let score = ( Math.max(1,5-card.correct) + Math.max(1,5-card.seen) + 5*( (card.seen-card.correct)/card.seen) );
+			console.log("card's score: " + score);
+			if(Math.random() * 15 <= score) {
+				// Update the times seen
+				let cmd = 	"UPDATE Flashcards SET " +
 						"seen=" + (card.seen + 1) + " " +
 						"WHERE user='" + req.user.userData + "' AND " +
 						"spanish='" + card.spanish + "'";  
 
-			db.all(cmd, function(err, data) {
-				console.log("update query");
-				if(err) {console.log(err); }
-				else { console.log(data); }
-				// Set the return data.
-				res.json = {
-					english: card.english,
-					spanish: card.spanish
-				}
-				res.send(JSON.stringify(res.json));
-				next();
-			});
+				db.all(cmd, function(err, data) {
+					console.log("update query");
+					if(err) {console.log(err); }
+					else { console.log(data); }
+					// Set the return data.
+					res.json = {
+						english: card.english,
+						spanish: card.spanish
+					}
+					res.send(JSON.stringify(res.json));
+					next();
+				});
+			}
+			else 
+			{
+				console.log("getting a new card...");
+				getRandomCard(req, res, next);
+			}
 		}
 		else 
 		{
