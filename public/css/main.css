@@ -10,7 +10,7 @@
 	font-family: 'Raleway', sans-serif;
 }
 
-#reviewButton, #submitButton, #saveButton, #addRedirect, #flipButton, #footer {
+#reviewButton, #submitButton, #saveButton, #addRedirect, #flipButton, #nextCardButton, #footer {
 	font-size: 1.08em; /* 25/12 = 2.08 */
 	color: white;
 	font-family: helvetica;
@@ -25,12 +25,17 @@
 	background-color: #606B9B;
 }
 
+#anotherWrapper {
+	max-width: 720px;
+	margin: 32px auto;
+}
+
 #addRedirect {
 	background-color: #606B9B;
 	text-decoration: none;
 }
 
-#flipButton {
+#flipButton, #nextCardButton {
 	background-color: #70C7A9;
 }
 
@@ -140,7 +145,7 @@
 	flex: 0 0 auto;
 }
 
-#saveButton, #submitButton, #reviewButton, #addRedirect, #flipButton {
+#saveButton, #submitButton, #reviewButton, #addRedirect, #flipButton, #nextCardButton {
 	display: flex;
 	flex: 0 0 auto;
 	border-radius: 12px;

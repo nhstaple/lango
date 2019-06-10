@@ -29,7 +29,22 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
    It was modified for ECS 162 by Nina Amenta, May 2019.
 */
 function cardReq() {
-  var str = "card?spanish=" + document.getElementById("trans").textContent + "&correct=true";
+  var str = "card?spanish="; // + document.getElementById("trans").textContent +
+
+  if (document.getElementById("cardInput").value == "") {
+    str += "NEXT";
+  } else {
+    str += document.getElementById("trans").textContent;
+  }
+
+  str += "&correct=";
+
+  if (checkAnswer()) {
+    str += "true";
+  } else {
+    str += "false";
+  }
+
   console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
   return;
@@ -154,23 +169,42 @@ function (_React$Component4) {
 function flipCard() {
   var counter = 0;
 
+  if (checkAnswer()) {
+    document.getElementById("congrats").textContent = "Correct!";
+  } else {
+    document.getElementById("congrats").textContent = "False!";
+  }
+
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
-
   var wait = setInterval(function () {
     console.log("Flip! " + counter);
+
     if (counter >= 1) {
       console.log("stop flipping!");
       clearInterval(wait);
+      document.getElementById("congrats").textContent = "Loading";
       getFlashCard();
+      document.getElementById("congrats").textContent = "";
     }
-    if(counter == 0) 
-    {
+
+    if (counter == 0) {
       document.getElementById("card").classList.remove("is-flipped");
       document.getElementById("front").classList.remove("is-flipped");
     }
+
     counter++;
   }, 1500);
+}
+
+function checkAnswer() {
+  var solution = document.getElementById("answer").textContent;
+  solution = solution.toLowerCase();
+  var answer = document.getElementById("cardInput").value;
+  answer = answer.toLowerCase();
+  answer = answer.replace(/(\r\n|\n|\r)/gm, "");
+  console.log(answer + " ?= " + solution + " => " + (answer == solution));
+  return answer == solution;
 }
 
 var CardWrapper =
@@ -188,6 +222,7 @@ function (_React$Component5) {
     key: "checkReturn",
     value: function checkReturn(event) {
       if (event.charCode == 13) {
+        document.getElementById("cardInput").value = document.getElementById("cardInput").value.replace(/(\r\n|\n|\r)/gm, "");
         flipCard();
       }
     }
@@ -203,7 +238,7 @@ function (_React$Component5) {
         className: "buttonWrapper"
       }, React.createElement("button", {
         id: "flipButton",
-        onClick: this.flipCard
+        onClick: flipCard
       }, "Check Answer")), React.createElement("div", {
         className: "card-body"
       }, React.createElement(CardBack, {
@@ -218,7 +253,14 @@ function (_React$Component5) {
         name: "english",
         placeholder: "English",
         onKeyPress: this.checkReturn
-      })), React.createElement(Footer, null));
+      })), React.createElement("div", {
+        id: "anotherWrapper"
+      }, React.createElement("div", {
+        className: "buttonWrapper"
+      }, React.createElement("button", {
+        id: "nextCardButton",
+        onClick: getFlashCard
+      }, "Next"))), React.createElement(Footer, null));
     }
   }]);
 

@@ -9,8 +9,17 @@
 
 function cardReq()
 {
-  let str = "card?spanish=" + document.getElementById("trans").textContent +
-                "&correct=true";
+  let str = "card?spanish="; // + document.getElementById("trans").textContent +
+  if(document.getElementById("cardInput").value == "") {
+    str += "NEXT";
+  }
+  else 
+  {
+    str += document.getElementById("trans").textContent; 
+  }
+  str += "&correct=";
+  if(checkAnswer()) { str += "true"; }
+  else { str += "false"; }
   console.log("sanity check cardReq AJAX\n" + str);
   makeCorsRequest(str);
 	return;
@@ -70,6 +79,11 @@ class CardBack extends React.Component {
 
 function flipCard() {
   var counter = 0;
+  if(checkAnswer()) {
+    document.getElementById("congrats").textContent = "Correct!";
+  } else {
+    document.getElementById("congrats").textContent = "False!";
+  }
 
   document.getElementById("card").classList.add("is-flipped");
   document.getElementById("front").classList.add("is-flipped");
@@ -79,7 +93,9 @@ function flipCard() {
     if (counter >= 1) {
       console.log("stop flipping!");
       clearInterval(wait);
+      document.getElementById("congrats").textContent = "Loading";
       getFlashCard();
+      document.getElementById("congrats").textContent = "";
     }
     if(counter == 0) 
     {
@@ -90,9 +106,22 @@ function flipCard() {
   }, 1500);
 }
 
+function checkAnswer()
+{
+  var solution = document.getElementById("answer").textContent;
+  solution = solution.toLowerCase();
+  var answer = document.getElementById("cardInput").value;
+  answer = answer.toLowerCase();
+  answer = answer.replace(/(\r\n|\n|\r)/gm, "");
+  console.log(answer + " ?= " + solution + " => " + (answer == solution));
+  return (answer == solution);
+}
+
+
 class CardWrapper extends React.Component {
   checkReturn(event) {
     if (event.charCode == 13) {
+      document.getElementById("cardInput").value = document.getElementById("cardInput").value.replace(/(\r\n|\n|\r)/gm, "");
       flipCard();
     }
   }
@@ -102,7 +131,7 @@ class CardWrapper extends React.Component {
         <Header />
         <div id="card" className='card-container'>
           <div className="buttonWrapper">
-            <button id="flipButton" onClick={this.flipCard}>Check Answer</button>
+            <button id="flipButton" onClick={flipCard}>Check Answer</button>
           </div>
           <div className='card-body'>
             <CardBack text="Correct!" />
@@ -114,6 +143,11 @@ class CardWrapper extends React.Component {
 					<textarea id="cardInput" type="text" name="english" placeholder="English" onKeyPress={this.checkReturn}>
           </textarea>
 				</div>
+        <div id="anotherWrapper">
+          <div className="buttonWrapper">
+            <button id="nextCardButton" onClick={getFlashCard}>Next</button>
+          </div>
+        </div>
         <Footer />
       </div>
     )

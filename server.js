@@ -77,7 +77,7 @@ function getFlashCardHandler(req, res, next)
 	console.log("Get Flashcard handler. got: ", req.query);
 	console.log(req.query);
 	let card = req.query;
-	if(req.query.spanish == "")
+	if(req.query.spanish == "" || req.query.spanish == "NEXT")
 	{
 		console.log("init");
 		const dump = "SELECT * FROM Flashcards";
@@ -100,13 +100,17 @@ function getFlashCardHandler(req, res, next)
 			else if (cards.length > 0) { 
 				console.log(cards); 
 				// Update the times seen
-				console.log("this answer: " + req.query.correct);
+				var flag =  req.query.correct;
+				console.log("this answer: " + flag);
 				console.log("user score : " + cards[0].correct);
-				var boop = cards[0].correct
-				if(req.query.correct)
+				var boop = 0;
+				boop = cards[0].correct
+				if(flag)
 				{
-					boop++;
+					console.log("sanity flag check");
+					boop = boop + 1;
 				}
+				console.log("updating correct to: " + boop);
 				let cmd = 	"UPDATE Flashcards SET " +
 				"correct=" + boop + " " +
 				"WHERE user='" + req.user.userData + "' AND " +
@@ -138,7 +142,8 @@ function getRandomCard(req, res, next)
 			console.log(userCards);
 			// pick a random flashcard
 			const size = userCards.length;
-			const index = Math.floor(Math.random(0, size - 1));
+			const index = Math.floor(Math.random() * size);
+			console.log(size + " : [" + index +"]");
 			let card = userCards[index];
 			// Update the times seen
 			let cmd = 	"UPDATE Flashcards SET " +
