@@ -103,12 +103,13 @@ function checkAnswer()
 {
   var solution = document.getElementById("answer").textContent;
   solution = solution.toLowerCase();
-  var answer = document.getElementById("cardInput").textContent;
+  var answer = document.getElementById("cardInput").value;
   answer = answer.toLowerCase();
   answer = answer.replace(/(\r\n|\n|\r)/gm, "");
   console.log(answer + " ?= " + solution + " => " + (answer == solution));
   return (answer == solution);
 }
+
 
 class CardWrapper extends React.Component {
   checkReturn(event) {
