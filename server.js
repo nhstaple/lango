@@ -141,8 +141,8 @@ function getRandomCard(req, res, next)
 			console.log("success");
 			console.log(userCards);
 			// pick a random flashcard
-			const size = userCards.length - 1;
-			const index = Math.random() * size;
+			const size = userCards.length;
+			const index = Math.floor(Math.random() * size);
 			console.log(size + " : [" + index +"]");
 			let card = userCards[index];
 			// Update the times seen
