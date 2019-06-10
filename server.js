@@ -142,7 +142,8 @@ function getRandomCard(req, res, next)
 			console.log(userCards);
 			// pick a random flashcard
 			const size = userCards.length;
-			const index = Math.floor(Math.random(0, size - 1));
+			const index = Math.floor(Math.random(0, size-0.1));
+			console.log(size + " : [" + index +"]");
 			let card = userCards[index];
 			// Update the times seen
 			let cmd = 	"UPDATE Flashcards SET " +
