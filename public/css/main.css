@@ -25,7 +25,12 @@
 	background-color: #606B9B;
 }
 
-#addRedirect, {
+#anotherWrapper {
+	max-width: 720px;
+	margin: 32px auto;
+}
+
+#addRedirect {
 	background-color: #606B9B;
 	text-decoration: none;
 }

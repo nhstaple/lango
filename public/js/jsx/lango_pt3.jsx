@@ -143,9 +143,11 @@ class CardWrapper extends React.Component {
 					<textarea id="cardInput" type="text" name="english" placeholder="English" onKeyPress={this.checkReturn}>
           </textarea>
 				</div>
-        <div className="buttonWrapper">
+        <div id="anotherWrapper">
+          <div className="buttonWrapper">
             <button id="nextCardButton" onClick={getFlashCard}>Next</button>
           </div>
+        </div>
         <Footer />
       </div>
     )

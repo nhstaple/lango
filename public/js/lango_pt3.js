@@ -254,11 +254,13 @@ function (_React$Component5) {
         placeholder: "English",
         onKeyPress: this.checkReturn
       })), React.createElement("div", {
+        id: "anotherWrapper"
+      }, React.createElement("div", {
         className: "buttonWrapper"
       }, React.createElement("button", {
         id: "nextCardButton",
         onClick: getFlashCard
-      }, "Next")), React.createElement(Footer, null));
+      }, "Next"))), React.createElement(Footer, null));
     }
   }]);
 
