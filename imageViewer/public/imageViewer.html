@@ -1,0 +1,40 @@
+<!doctype HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Building a Photo Collection from Flickr</title>
+    <link rel="stylesheet" type="text/css" href="http://web.cs.ucdavis.edu/~amenta/s18/reset.css">
+    <link rel="stylesheet" type="text/css" href="imageViewer.css">
+  </head>
+  <body>
+
+    
+    <div id="heading">
+      <h1>ImageViewer</h1>
+    </div>
+    <div id="searchDiv">
+        <p class="prompt">Enter keywords to search on Flickr.</p>
+	<div id="query">
+	  <input id="keywordBox" type="text" placeholder="mountain goat nature">
+	  <button onclick="gotKeyword()">Search</button>
+	</div>
+    </div>
+
+    <main>
+      <div id="photoDisplay">
+	<div id="react">
+	  <p class="prompt">Nothing yet - try searching!</p>
+	</div>
+      </div>
+    </main>
+
+    <!-- React libraries -->
+    <script src="https://unpkg.com/react@15/dist/react.js"></script> 
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+    <!-- Javasript for this page -->
+    <script src="imageViewer.js"></script>
+
+  </body>
+</html>
